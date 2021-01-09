@@ -29,3 +29,7 @@ yarn-error.log*
 firestore.rules
 database.rules.json
 storage.rules
+
+.eslintcache
+
+/src/dataset

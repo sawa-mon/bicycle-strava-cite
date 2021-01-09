@@ -1,5 +1,5 @@
 const initialState = {
-  places: {},
+  areapoints: {},
 
   users: {
     isSignedIn: false,

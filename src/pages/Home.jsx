@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { push } from "connected-react-router";
@@ -8,51 +8,68 @@ import { signOut } from "../reducks/users/operations";
 const Home = () => {
   const dispatch = useDispatch();
 
-  //ここは最終的にデータベース参照
-  const pageMenus = [
+  //ここは最終的にデータベース参照で最終的にmapでまわす
+  const prefectureMenus = [
+    {
+      name: "地域選択",
+      prefecture: "",
+    },
     {
       name: "長野県",
-      value: "naganoprefecture",
+      prefecture: "naganoprefecture",
     },
     {
       name: "愛知県",
-      value: "aichiprefecture",
+      prefecture: "aichiprefecture",
     },
     {
       name: "岐阜県",
-      value: "gifuprefecture",
+      prefecture: "gifuprefecture",
+    },
+    {
+      name: "三重県",
+      prefecture: "mieprefecture",
     },
   ];
 
   const getValue = () => {
-    const element = document.getElementById("prefecture");
-    const value = element.value;
-    dispatch(push(`/${value}`));
+    const element = document.getElementById("prefectures");
+    const prefectureValue = element.value;
+    dispatch(push(`/${prefectureValue}`));
   };
 
   return (
     <Section>
       <StyledContainer>
         <StyledTitle>今日はどこ行こう？</StyledTitle>
-        <Styledcoment>バイクラックがあるとこ？</Styledcoment>
-        <Styledcoment>そういう情報を確認するツールって？</Styledcoment>
-        <Styledcoment>そんな時に使ってみてください</Styledcoment>
-        <Styledcoment>すると、新しい発見があるかもしれません</Styledcoment>
         <Styledcoment>
-          もし、まだ登録されてないポイントが
+          バイクラックがあるとこ？
           <br />
-          あったなら、追加することもできます
+          そういう情報を確認するツールって？
+        </Styledcoment>
+        <Styledcoment>
+          そんな時に使ってみてください
+          <br />
+          すると、新しい発見があるかもしれません
+        </Styledcoment>
+        <Styledcoment>
+          新たな発見を登録ページの投稿機能を使って
+          <br />
+          コメントを残すこともできます
+        </Styledcoment>
+        <Styledcoment>
+          知らなかった場所や
+          <br />
+          気になったポイントがあれば
+          <br />
+          ぜひ実際に足を運んでみて下さい
         </Styledcoment>
         <Styledcoment>エリアから選ぶ</Styledcoment>
         <StyledFrom>
-          <StyledSelect id="prefecture">
-            {pageMenus.map((pageMenu) => (
-              <option
-                key={pageMenu.number}
-                value={pageMenu.value}
-                id={pageMenu.id}
-              >
-                {pageMenu.name}
+          <StyledSelect id="prefectures">
+            {prefectureMenus.map((prefectureMenu, index) => (
+              <option key={index} value={prefectureMenu.prefecture}>
+                {prefectureMenu.name}
               </option>
             ))}
           </StyledSelect>
@@ -62,7 +79,9 @@ const Home = () => {
             onClick={() => getValue()}
           />
         </StyledFrom>
-        <Button label="ログアウトする" onClick={() => dispatch(signOut())} />
+        <Space>
+          <Button label="ログアウトする" onClick={() => dispatch(signOut())} />
+        </Space>
       </StyledContainer>
     </Section>
   );
@@ -71,7 +90,7 @@ const Home = () => {
 export default Home;
 
 const Section = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   margin: auto;
 `;
 
@@ -114,4 +133,13 @@ const StyledSubmit = styled.input`
   height: 40px;
   border: none;
   background-color: #b5b5b5;
+  outline: none;
+  cursor: pointer;
+  :active {
+    opacity: 0.7;
+  }
+`;
+
+const Space = styled.div`
+  margin-bottom: 30px;
 `;
