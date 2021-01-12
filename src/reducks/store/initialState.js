@@ -1,5 +1,7 @@
 const initialState = {
-  areapoints: {},
+  areapoints: {
+    prefecture: "",
+  },
 
   users: {
     isSignedIn: false,

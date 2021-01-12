@@ -1,29 +1,91 @@
-import React from "react";
-import { Button } from "../components/UIkit/Button";
-import { GoogleMapsComponent } from "../components/UIkit/GoogleMapsComponent";
+import React, { useEffect, useState } from "react";
+import { Button } from "../components/UIkit/index";
+import { GoogleMapsComponent } from "../components/UIkit/index";
 import { push } from "connected-react-router";
 import { useDispatch } from "react-redux";
-import { gifuDataset } from "../dataset/gifuDataset";
+import styled from "styled-components";
+import { db } from "../firebase";
 
-export const GifuPrefecture = (props) => {
-  console.log(props);
+export const GifuPrefecture = () => {
   const dispatch = useDispatch();
-  const sateliteScans = gifuDataset;
+
+  const [sateliteScans, setSateliteScans] = useState([]);
+
+  useEffect(() => {
+    const unSub = db
+      .collection("areapoints")
+      .orderBy("timestamp", "asc")
+      .onSnapshot((snapshot) =>
+        setSateliteScans(
+          snapshot.docs.map((doc) => ({
+            key: doc,
+            info: doc.data().info,
+            installation: doc.data().installation,
+            locationLat: doc.data().locationLat,
+            locationLng: doc.data().locationLng,
+            prefecture: doc.data().prefecture,
+            timestamp: doc.data().timestamp,
+          }))
+        )
+      );
+    return () => {
+      unSub();
+    };
+  }, []);
 
   return (
-    <div>
-      <p>岐阜のラック設置エリア一覧</p>
+    <StyledSection>
+      <h2>岐阜県のラック設置エリア一覧</h2>
       <Button label="Home" onClick={() => dispatch(push("/"))} />
-      <div>
+      <Wrap>
         {sateliteScans.map((sateliteScan, index) => (
-          <GoogleMapsComponent
-            key={index}
-            info={sateliteScan.info}
-            lat={sateliteScan.location.lat}
-            lng={sateliteScan.location.lng}
-          />
+          <StyledInfo key={index}>
+            <h3>
+              <strong>ラック設置エリア</strong>
+              <br />
+              {sateliteScan.installation}
+            </h3>
+            <MapWrap>
+              <GoogleMapsComponent
+                info={sateliteScan.info}
+                lat={sateliteScan.locationLat}
+                lng={sateliteScan.locationLng}
+              />
+              <CommentWrap>
+                <Button plane label="投稿されたコメントを見る" />
+              </CommentWrap>
+            </MapWrap>
+          </StyledInfo>
         ))}
-      </div>
-    </div>
+      </Wrap>
+    </StyledSection>
   );
 };
+
+const StyledSection = styled.section`
+  display: grid;
+  place-items: center;
+`;
+
+const Wrap = styled.div``;
+
+const CommentWrap = styled.div`
+  padding: 10px 10px 0 10px;
+`;
+
+const StyledInfo = styled.div`
+  border: 2px;
+  border-radius: 5px;
+  width: 320px;
+  border-style: groove;
+  margin: 10px;
+  h3 {
+    padding: 5px;
+  }
+`;
+
+const MapWrap = styled.div`
+  display: grid;
+  place-items: center;
+  margin: 10px;
+`;

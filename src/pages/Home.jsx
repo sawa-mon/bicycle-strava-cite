@@ -1,35 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { push } from "connected-react-router";
-import { Button } from "../components/UIkit/Button";
+import { Button, SelectBox } from "../components/UIkit";
 import { signOut } from "../reducks/users/operations";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [prefecture, setPrefecture] = useState("");
 
-  //ここは最終的にデータベース参照で最終的にmapでまわす
-  const prefectureMenus = [
-    {
-      name: "地域選択",
-      prefecture: "",
-    },
-    {
-      name: "長野県",
-      prefecture: "naganoprefecture",
-    },
-    {
-      name: "愛知県",
-      prefecture: "aichiprefecture",
-    },
-    {
-      name: "岐阜県",
-      prefecture: "gifuprefecture",
-    },
-    {
-      name: "三重県",
-      prefecture: "mieprefecture",
-    },
+  const prefectures = [
+    { id: "", name: "地域選択" },
+    { id: "gifu", name: "岐阜" },
+    { id: "aichi", name: "愛知" },
+    { id: "nagano", name: "長野" },
+    { id: "mie", name: "三重" },
   ];
 
   const getValue = () => {
@@ -66,13 +51,14 @@ const Home = () => {
         </Styledcoment>
         <Styledcoment>エリアから選ぶ</Styledcoment>
         <StyledFrom>
-          <StyledSelect id="prefectures">
-            {prefectureMenus.map((prefectureMenu, index) => (
-              <option key={index} value={prefectureMenu.prefecture}>
-                {prefectureMenu.name}
-              </option>
-            ))}
-          </StyledSelect>
+          <label />
+          <SelectBox
+            home
+            id={"prefectures"}
+            options={prefectures}
+            select={setPrefecture}
+            value={prefecture}
+          />
           <StyledSubmit
             type="button"
             value="確認する"
@@ -82,6 +68,12 @@ const Home = () => {
         <Space>
           <Button label="ログアウトする" onClick={() => dispatch(signOut())} />
         </Space>
+        <Space>
+          <Button
+            label="情報追加ページへ行く"
+            onClick={() => dispatch(push("/installationinfoedit"))}
+          />
+        </Space>
       </StyledContainer>
     </Section>
   );
@@ -89,7 +81,7 @@ const Home = () => {
 
 export default Home;
 
-const Section = styled.div`
+const Section = styled.section`
   min-height: 100vh;
   margin: auto;
 `;
@@ -111,15 +103,6 @@ const Styledcoment = styled.h4`
 const StyledContainer = styled.div`
   display: grid;
   place-items: center;
-`;
-
-const StyledSelect = styled.select`
-  width: 150px;
-  height: 40px;
-  font-size: 20px;
-  background-color: #d1d1d1;
-  border: none;
-  outline: none;
 `;
 
 const StyledFrom = styled.div`

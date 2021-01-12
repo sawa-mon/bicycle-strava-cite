@@ -23,7 +23,6 @@ export const listenAuthState = () => {
                 username: data.displayName,
               })
             );
-            dispatch(push("/"));
           });
       } else {
         dispatch(push("/signin"));

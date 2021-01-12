@@ -18,7 +18,7 @@ const StyledButton = styled.button`
 
   display: grid;
   place-items: center;
-  width: 180px;
+  width: 230px;
   height: 30px;
   border: none;
   border-radius: 15px;

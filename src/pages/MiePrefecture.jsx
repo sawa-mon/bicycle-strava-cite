@@ -31,7 +31,7 @@ export const MiePrefecture = () => {
 
   return (
     <div>
-      <p>三重県のラック設置エリア一覧</p>
+      <h2>三重県のラック設置エリア一覧</h2>
       <h3>
         申し訳ありません。
         <br />

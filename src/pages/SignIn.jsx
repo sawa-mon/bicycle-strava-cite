@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import GoogleIcon from "../assets/Images/google.svg";
 import TwitterIcon from "../assets/Images/twitter.svg";
 import { Loading } from "../components/UIkit/Loading";
-import { Button } from "../components/UIkit/Button";
 
 const SignIn = () => {
   const dispatch = useDispatch();
