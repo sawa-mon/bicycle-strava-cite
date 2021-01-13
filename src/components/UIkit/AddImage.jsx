@@ -23,9 +23,6 @@ export const AddImage = (props) => {
   const uploadImage = useCallback(
     (event) => {
       const file = event.target.files;
-      if (!file.length) {
-        return;
-      }
       let blob = new Blob(file, { type: "image/jpeg" });
 
       //16桁のランダム数列の生成
@@ -54,21 +51,19 @@ export const AddImage = (props) => {
       <div>
         {props.images.length > 0 &&
           props.images.map((image) => (
-            <div>
-              <ImagePreview
-                key={image.id}
-                id={image.id}
-                path={image.path}
-                delete={deleteImage}
-              />
-            </div>
+            <ImagePreview
+              key={image.id}
+              id={image.id}
+              path={image.path}
+              delete={deleteImage}
+            />
           ))}
       </div>
       <StyledContainer>
         <span>ポイント参考画像の登録</span>
         <StyledWrapImageButton>
           <label>
-            <img src={addImage} />
+            <img src={addImage} alt="icon" />
             <StyledAddFile
               type="file"
               id="image"

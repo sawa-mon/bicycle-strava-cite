@@ -8,7 +8,7 @@ import { connectRouter, routerMiddleware } from "connected-react-router";
 import thunk from "redux-thunk";
 
 import { UsersReducer } from "../users/reducers";
-// import { AreaPointsReducer } from "../areapoints/reducer";
+import { AreaPointsReducer } from "../areapoints/reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -16,7 +16,7 @@ export default function createStore(history) {
   return reduxCreateStore(
     combineReducers({
       router: connectRouter(history),
-      // areapoints: AreaPointsReducer,
+      areapoints: AreaPointsReducer,
       users: UsersReducer,
     }),
     //DevTools用

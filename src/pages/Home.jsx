@@ -7,21 +7,6 @@ import { signOut } from "../reducks/users/operations";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [prefecture, setPrefecture] = useState("");
-
-  const prefectures = [
-    { id: "", name: "地域選択" },
-    { id: "gifu", name: "岐阜" },
-    { id: "aichi", name: "愛知" },
-    { id: "nagano", name: "長野" },
-    { id: "mie", name: "三重" },
-  ];
-
-  const getValue = () => {
-    const element = document.getElementById("prefectures");
-    const prefectureValue = element.value;
-    dispatch(push(`/${prefectureValue}`));
-  };
 
   return (
     <Section>
@@ -38,40 +23,30 @@ const Home = () => {
           すると、新しい発見があるかもしれません
         </Styledcoment>
         <Styledcoment>
-          新たな発見を登録ページの投稿機能を使って
+          新たな発見を情報ページの投稿機能を使って
           <br />
           コメントを残すこともできます
         </Styledcoment>
         <Styledcoment>
           知らなかった場所や
           <br />
-          気になったポイントがあれば
+          気になったポイントが見つかれば
           <br />
           ぜひ実際に足を運んでみて下さい
         </Styledcoment>
-        <Styledcoment>エリアから選ぶ</Styledcoment>
-        <StyledFrom>
-          <label />
-          <SelectBox
-            home
-            id={"prefectures"}
-            options={prefectures}
-            select={setPrefecture}
-            value={prefecture}
+        <Space>
+          <Button
+            label="ポイントを見てみる"
+            onClick={() => dispatch(push("/prefecturelist"))}
           />
-          <StyledSubmit
-            type="button"
-            value="確認する"
-            onClick={() => getValue()}
-          />
-        </StyledFrom>
+        </Space>
         <Space>
           <Button label="ログアウトする" onClick={() => dispatch(signOut())} />
         </Space>
         <Space>
           <Button
-            label="情報追加ページへ行く"
-            onClick={() => dispatch(push("/installationinfoedit"))}
+            label="情報編集ページへ行く"
+            onClick={() => dispatch(push("/editareapointlist"))}
           />
         </Space>
       </StyledContainer>

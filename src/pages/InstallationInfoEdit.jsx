@@ -1,15 +1,21 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, SelectBox } from "../components/UIkit";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { saveAddPoint } from "../reducks/areapoints/operation";
 import { AddImage } from "../components/UIkit";
+import { db } from "../firebase";
 
 export const InstallationInfoEdit = () => {
   const dispatch = useDispatch();
+  let id = window.location.pathname.split("/installationinfoedit")[1];
+
+  if (id !== "") {
+    id = id.split("/")[1];
+  }
 
   const [info, setInfo] = useState("");
-  const [insatallation, setInsatallation] = useState("");
+  const [installation, setInstallation] = useState("");
   const [images, setImages] = useState([]);
   const [locationLat, setLocationLat] = useState("");
   const [locationLng, setLocationLng] = useState("");
@@ -24,9 +30,9 @@ export const InstallationInfoEdit = () => {
 
   const inputInsatallation = useCallback(
     (event) => {
-      setInsatallation(event.target.value);
+      setInstallation(event.target.value);
     },
-    [setInsatallation]
+    [setInstallation]
   );
 
   const inputLocationLat = useCallback(
@@ -51,6 +57,24 @@ export const InstallationInfoEdit = () => {
     { id: "mie", name: "三重" },
   ];
 
+  // /編集ページにおけるデータベースからのデータ取得
+  useEffect(() => {
+    if (id !== "") {
+      db.collection("areapoints")
+        .doc(id)
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.data();
+          setInfo(data.info);
+          setInstallation(data.installation);
+          setImages(data.images);
+          setLocationLat(data.locationLat);
+          setLocationLng(data.locationLng);
+          setPrefecture(data.prefecture);
+        });
+    }
+  }, [id]);
+
   return (
     <StyledSection>
       <h2>ラックポイント登録・編集</h2>
@@ -60,7 +84,7 @@ export const InstallationInfoEdit = () => {
           onChange={inputInsatallation}
           type="text"
           placeholder="バイクラックの場所概要：道の駅〇〇"
-          value={insatallation}
+          value={installation}
         />
         <StyledInput
           onChange={inputInfo}
@@ -94,9 +118,10 @@ export const InstallationInfoEdit = () => {
             onClick={() =>
               dispatch(
                 saveAddPoint(
+                  id,
                   info,
                   images,
-                  insatallation,
+                  installation,
                   locationLat,
                   locationLng,
                   prefecture

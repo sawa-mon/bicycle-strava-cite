@@ -5,7 +5,6 @@ export const SelectBox = (props) => {
   return (
     <StyledSelect
       id={props.id}
-      home={props.home}
       value={props.value}
       onChange={(event) => props.select(event.target.value)}
     >

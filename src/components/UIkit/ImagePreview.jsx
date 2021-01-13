@@ -7,7 +7,7 @@ export const ImagePreview = (props) => {
     <StyledMediaThumb>
       <StyledDeleteButton onClick={() => props.delete(props.id)}>
         <label>
-          <img src={closeMark} />
+          <img src={closeMark} alt="closeicon" />
         </label>
       </StyledDeleteButton>
       <StyledImage alt="プレビュー画像" src={props.path} />

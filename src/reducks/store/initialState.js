@@ -1,6 +1,6 @@
 const initialState = {
   areapoints: {
-    prefecture: "",
+    list: [],
   },
 
   users: {

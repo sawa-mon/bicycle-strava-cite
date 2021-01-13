@@ -3,10 +3,15 @@ import initialState from "../store/initialState";
 
 export const AreaPointsReducer = (state = initialState.areapoints, action) => {
   switch (action.type) {
-    case Actions.FETCH_PREFECTURE_NAME:
+    case Actions.DELETE_AREAPOINT:
       return {
         ...state,
-        prefecture: [...action.payload],
+        list: [...action.payload],
+      };
+    case Actions.FETCH_AREAPOINTS:
+      return {
+        ...state,
+        list: [...action.payload],
       };
     default:
       return state;
