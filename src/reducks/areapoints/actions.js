@@ -1,9 +1,15 @@
-export const FETCH_PREFECTURE_NAME = "FETCH_PREFECTURE_NAME";
-export const fetchPrefectureNameAction = (areapoints) => {
+export const DELETE_AREAPOINT = "DELETE_AREAPOINT";
+export const deleteAreaPointsAction = (areapoints) => {
   return {
-    type: "FETCH_PREFECTURE_NAME",
-    payload: {
-      prefecture: areapoints.prefecture,
-    },
+    type: "DELETE_AREAPOINT",
+    payload: areapoints,
+  };
+};
+
+export const FETCH_AREAPOINTS = "FETCH_AREAPOINTS";
+export const fetchAreaPointsAction = (areapoints) => {
+  return {
+    type: "FETCH_AREAPOINTS",
+    payload: areapoints,
   };
 };

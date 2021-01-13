@@ -1,8 +1,8 @@
 import { createSelector } from "reselect";
 
-const AreaPointsSelector = (state) => state.areapoints;
+const areapointsSelector = (state) => state.areapoints;
 
-export const getPrefectureName = createSelector(
-  [AreaPointsSelector],
-  (state) => state.prefecture
+export const getAreaPoints = createSelector(
+  [areapointsSelector],
+  (state) => state.list
 );

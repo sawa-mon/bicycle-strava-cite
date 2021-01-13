@@ -1,28 +1,45 @@
 import { push } from "connected-react-router";
 import { db, FirebaseTimestamp } from "../../firebase";
-import { fetchPrefectureNameAction } from "./actions";
+import { deleteAreaPointsAction, fetchAreaPointsAction } from "./actions";
 
 const areapointsRef = db.collection("areapoints");
 
-export const fetchPrefectureName = (prefecture) => {
+//県情報の取得
+export const fetchAreaPoints = () => {
   return async (dispatch) => {
-    const query = db
-      .collection("areapoints")
-      .where("prefecture", "==", prefecture);
-    query.get().then((snapshots) => {
-      snapshots.forEach((snapshot) => {
-        const areapoints = snapshot.data();
-        const data = {
-          prefecture: areapoints.prefecture,
-        };
-        dispatch(fetchPrefectureNameAction(data));
+    areapointsRef
+      .orderBy("timestamp", "desc")
+      .get()
+      .then((snapshots) => {
+        const areapointsList = [];
+        snapshots.forEach((snapshot) => {
+          const areapoint = snapshot.data();
+          areapointsList.push(areapoint);
+        });
+        dispatch(fetchAreaPointsAction(areapointsList));
       });
-    });
+  };
+};
+
+//データベース情報の削除処理
+export const deleteAreaPoint = (id) => {
+  return async (dispatch, getState) => {
+    areapointsRef
+      .doc(id)
+      .delete()
+      .then(() => {
+        const prevAreaPoints = getState().areapoints.list;
+        const nextAreaPoints = prevAreaPoints.filter(
+          (areapoint) => areapoint.id !== id
+        ); //配列に渡ってきた削除されたもの以外のidを回す
+        dispatch(deleteAreaPointsAction(nextAreaPoints));
+      });
   };
 };
 
 //ラック設置ポイントの登録処理
 export const saveAddPoint = (
+  id,
   info,
   images,
   installation,
@@ -34,6 +51,7 @@ export const saveAddPoint = (
     const timestamp = FirebaseTimestamp.now();
 
     const data = {
+      id: id,
       info: info,
       images: images,
       installation: installation,
@@ -43,14 +61,17 @@ export const saveAddPoint = (
       timestamp: timestamp,
     };
 
-    const ref = areapointsRef.doc();
-    const id = ref.id;
-    data.id = id;
-    data.timestamp = timestamp;
+    //新規作成のページのときのみ(idが""=新規作成)は実行
+    if (id === "") {
+      const ref = areapointsRef.doc();
+      id = ref.id;
+      data.id = id;
+      data.timestamp = timestamp;
+    }
 
     return areapointsRef
       .doc(id)
-      .set(data)
+      .set(data, { marge: true }) //dataのみだとデータを上書きしてしまう為
       .then(() => {
         dispatch(push("/"));
       })

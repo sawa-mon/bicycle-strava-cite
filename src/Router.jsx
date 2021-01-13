@@ -1,12 +1,15 @@
 import React from "react";
 import { Switch, Route } from "react-router";
-import { SignIn, Home } from "./pages";
+import {
+  SignIn,
+  Home,
+  EditAreaPointList,
+  EditAuthPage,
+  PrefectureList,
+  MiePrefecture,
+  InstallationInfoEdit,
+} from "./pages";
 import Auth from "./Auth";
-import { NaganoPrefecture } from "./pages/index";
-import { GifuPrefecture } from "./pages/index";
-import { AichiPrefecture } from "./pages/index";
-import { MiePrefecture } from "./pages/index";
-import { InstallationInfoEdit } from "./pages/index";
 
 const Router = () => {
   return (
@@ -14,14 +17,17 @@ const Router = () => {
       <Route exact path={"/signin"} component={SignIn} />
       <Auth>
         <Route exact path={"(/)?"} component={Home} />
-        <Route exact path={"/gifu"} component={GifuPrefecture} />
-        <Route exact path={"/nagano"} component={NaganoPrefecture} />
-        <Route exact path={"/aichi"} component={AichiPrefecture} />
+        <Route exact path={"/prefecturelist"} component={PrefectureList} />
         <Route exact path={"/mie"} component={MiePrefecture} />
+        <Route exact path={"/editauthpage"} component={EditAuthPage} />
+        <Route
+          path={"/installationinfoedit(/:id)?"}
+          component={InstallationInfoEdit}
+        />
         <Route
           exact
-          path={"/installationinfoEdit"}
-          component={InstallationInfoEdit}
+          path={"/editareapointlist"}
+          component={EditAreaPointList}
         />
       </Auth>
     </Switch>
