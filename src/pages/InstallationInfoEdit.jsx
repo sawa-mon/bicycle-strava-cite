@@ -20,6 +20,7 @@ export const InstallationInfoEdit = () => {
   const [locationLat, setLocationLat] = useState("");
   const [locationLng, setLocationLng] = useState("");
   const [prefecture, setPrefecture] = useState("");
+  const [prefectures, setPrefectures] = useState([]);
 
   const inputInfo = useCallback(
     (event) => {
@@ -49,18 +50,11 @@ export const InstallationInfoEdit = () => {
     [setLocationLng]
   );
 
-  const prefectures = [
-    { id: "", name: "地域選択" },
-    { id: "gifu", name: "岐阜" },
-    { id: "aichi", name: "愛知" },
-    { id: "nagano", name: "長野" },
-    { id: "mie", name: "三重" },
-  ];
-
   // /編集ページにおけるデータベースからのデータ取得
-  useEffect(() => {
+  useEffect(async () => {
     if (id !== "") {
-      db.collection("areapoints")
+      await db
+        .collection("areapoints")
         .doc(id)
         .get()
         .then((snapshot) => {
@@ -74,6 +68,23 @@ export const InstallationInfoEdit = () => {
         });
     }
   }, [id]);
+
+  useEffect(() => {
+    db.collection("prefectures")
+      .orderBy("number", "asc")
+      .get()
+      .then((snapshots) => {
+        const list = [];
+        snapshots.forEach((snapshot) => {
+          const data = snapshot.data();
+          list.push({
+            id: data.id,
+            name: data.name,
+          });
+        });
+        setPrefectures(list);
+      });
+  }, []);
 
   return (
     <StyledSection>

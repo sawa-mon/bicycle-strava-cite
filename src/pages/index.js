@@ -5,3 +5,4 @@ export { PrefectureList } from "./PrefectureList";
 export { MiePrefecture } from "./MiePrefecture";
 export { InstallationInfoEdit } from "./InstallationInfoEdit";
 export { EditAuthPage } from "./EditAuthPage";
+export { AreaPointDetail } from "./AreaPointDetail";

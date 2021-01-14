@@ -11,47 +11,61 @@ export const EditAreaPointList = () => {
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
 
+  const query = selector.router.location.search;
+  const prefecture = /^\?prefecture=/.test(query)
+    ? query.split("?prefecture=")[1]
+    : "";
+
   useEffect(() => {
-    dispatch(fetchAreaPoints());
+    dispatch(fetchAreaPoints(prefecture));
   }, []);
 
   return (
-    <StyledSection>
+    <StyledContainer>
       <h2>編集一覧ページ</h2>
-      <Button label="Home" onClick={() => dispatch(push("/"))} />
-      {areapoints.length > 0 &&
-        areapoints.map((areapoint, index) => (
-          <StyledInfo key={index}>
-            <EditButton id={areapoint.id} />
-            <StyledTitle>
-              <strong>ラック設置エリア</strong>
-              <br />
-              {areapoint.installation}
-            </StyledTitle>
-            <MapWrap>
-              <GoogleMapsComponent
-                info={areapoint.info}
-                lat={areapoint.locationLat}
-                lng={areapoint.locationLng}
-              />
-            </MapWrap>
-          </StyledInfo>
-        ))}
-    </StyledSection>
+      <StyledSection>
+        {areapoints.length > 0 &&
+          areapoints.map((areapoint, index) => (
+            <StyledInfo key={index}>
+              <EditButton id={areapoint.id} />
+              <StyledTitle>
+                <strong>ラック設置エリア</strong>
+                <br />
+                {areapoint.installation}
+              </StyledTitle>
+              <MapWrap>
+                <GoogleMapsComponent
+                  info={areapoint.info}
+                  lat={areapoint.locationLat}
+                  lng={areapoint.locationLng}
+                />
+              </MapWrap>
+            </StyledInfo>
+          ))}
+      </StyledSection>
+    </StyledContainer>
   );
 };
 
-const StyledSection = styled.section`
+const StyledContainer = styled.section`
   display: grid;
   place-items: center;
+  margin: 0 auto 0 auto;
+`;
+
+const StyledSection = styled.div`
+  display: grid;
+  place-items: center;
+  @media screen and (min-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (min-width: 1040px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
 const StyledTitle = styled.div`
   margin: 0 0 20px 15px;
-`;
-
-const CommentWrap = styled.div`
-  padding: 10px 10px 0 10px;
 `;
 
 const StyledInfo = styled.div`

@@ -68,16 +68,22 @@ const SignIn = () => {
         <Loading />
       ) : (
         <>
-          <StyledTitle>
-            バイクラック設置
-            <br />
-            ポイント共有サイト
-          </StyledTitle>
-          <StyledInfo>
-            いずれかのSNSアカウントで
-            <br />
-            ログインして下さい
-          </StyledInfo>
+          <StyledMainTitle>今日、自転車でどこ行こう？</StyledMainTitle>
+          <Styledcoment>
+            バイクラックがあるとこで休憩したい
+            そういう情報を確認するツールって？
+          </Styledcoment>
+          <Styledcoment>
+            そんな時に使ってみてくださいすると、新しい発見があるかも
+          </Styledcoment>
+          <Styledcoment>
+            新たな発見を情報ページの投稿機能を使って
+            コメントとして残すこともできます
+          </Styledcoment>
+          <Styledcoment>
+            知らなかった場所や気になるポイントへぜひ実際に足を運んでみて下さい
+          </Styledcoment>
+          <StyledInfo>いずれかのSNSアカウントでログインして下さい</StyledInfo>
           {loginMenus.map((menu) => (
             <StyledButton
               key={menu.id}
@@ -98,27 +104,44 @@ export default SignIn;
 
 const Section = styled.div`
   background: linear-gradient(46deg, #e06218 0%, #354fdc 100%);
-
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
 `;
 
-const StyledTitle = styled.h2`
-  margin: 50px auto 50px auto;
-  padding: 25px;
-  font-size: 30px;
+const StyledMainTitle = styled.h2`
+  margin: 0 auto 0 auto;
+  padding-top: 35px;
+  font-size: 23px;
   display: grid;
   place-items: center;
   text-align: center;
+  @media screen and (min-width: 640px) {
+    padding-top: 0;
+  }
+`;
+
+const Styledcoment = styled.h4`
+  width: 315px;
+  margin: 0 auto;
+  padding: 12px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 16px;
+  @media screen and (min-width: 640px) {
+    width: 640px;
+  }
 `;
 
 const StyledInfo = styled.h3`
-  margin: 30px auto 30px auto;
+  width: 200px;
+  margin: 15px auto 15px auto;
   text-align: center;
+  font-size: 15px;
 `;
 
 const StyledButton = styled.button`

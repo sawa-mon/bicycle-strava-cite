@@ -7,49 +7,81 @@ import styled from "styled-components";
 import { getAreaPoints } from "../reducks/areapoints/selector";
 import { fetchAreaPoints } from "../reducks/areapoints/operation";
 
-export const PrefectureList = () => {
+export const PrefectureList = (props) => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
 
+  //selectorがURLに関する値を持っているのでそれを取得
+  const query = selector.router.location.search;
+  // クエリパラメータ /^\先頭が ?prefecture=から始まる queryを.testメソッドで検証し trueの場合split()[1]とし、?以降の値を取り出す
+  const prefecture = /^\?prefecture=/.test(query)
+    ? query.split("?prefecture=")[1]
+    : "";
+
   useEffect(() => {
-    dispatch(fetchAreaPoints());
-  }, []);
+    dispatch(fetchAreaPoints(prefecture));
+  }, [query]);
 
   return (
-    <StyledSection>
-      <h2>岐阜県のラック設置エリア一覧</h2>
-      <Button label="Home" onClick={() => dispatch(push("/"))} />
-      {areapoints.map((areapoint, index) => (
-        <StyledInfo key={index}>
-          <StyledTitle>
-            <strong>ラック設置エリア</strong>
-            <br />
-            {areapoint.installation}
-          </StyledTitle>
-          <MapWrap>
-            <GoogleMapsComponent
-              info={areapoint.info}
-              lat={areapoint.locationLat}
-              lng={areapoint.locationLng}
-            />
-            <CommentWrap>
-              <Button
-                plane
-                label="投稿されたコメントを見る"
-                onClick={() => dispatch(push("/"))}
-              />
-            </CommentWrap>
-          </MapWrap>
-        </StyledInfo>
-      ))}
-    </StyledSection>
+    <StyledContainer>
+      <h2>バイクラック設置エリア一覧</h2>
+      {areapoints.length > 0 ? (
+        <StyledSection>
+          {areapoints.map((areapoint, index) => (
+            <StyledInfo key={index}>
+              <StyledTitle>
+                <strong>ラック設置エリア</strong>
+                <br />
+                {areapoint.installation}
+              </StyledTitle>
+              <MapWrap>
+                <GoogleMapsComponent
+                  info={areapoint.info}
+                  lat={areapoint.locationLat}
+                  lng={areapoint.locationLng}
+                />
+                <CommentWrap>
+                  <Button
+                    plane
+                    label="詳細情報を見る"
+                    onClick={() => dispatch(push("/areapoint/" + areapoint.id))}
+                  />
+                </CommentWrap>
+              </MapWrap>
+            </StyledInfo>
+          ))}
+        </StyledSection>
+      ) : (
+        <StyledContainer>
+          <StyledErrorComent>
+            申し訳ありませんが、現在このエリアの情報はありません
+          </StyledErrorComent>
+        </StyledContainer>
+      )}
+    </StyledContainer>
   );
 };
 
-const StyledSection = styled.section`
+const StyledContainer = styled.section`
   display: grid;
   place-items: center;
+  margin: 0 auto 0 auto;
+`;
+
+const StyledErrorComent = styled.h2`
+  margin: 20px;
+`;
+
+const StyledSection = styled.div`
+  display: grid;
+  place-items: center;
+  @media screen and (min-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (min-width: 1040px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
 const StyledTitle = styled.div`
