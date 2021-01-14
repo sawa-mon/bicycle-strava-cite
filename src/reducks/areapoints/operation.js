@@ -4,24 +4,26 @@ import { deleteAreaPointsAction, fetchAreaPointsAction } from "./actions";
 
 const areapointsRef = db.collection("areapoints");
 
-//県情報の取得
-export const fetchAreaPoints = () => {
+//エリア情報取得
+export const fetchAreaPoints = (prefecture) => {
   return async (dispatch) => {
-    areapointsRef
-      .orderBy("timestamp", "desc")
-      .get()
-      .then((snapshots) => {
-        const areapointsList = [];
-        snapshots.forEach((snapshot) => {
-          const areapoint = snapshot.data();
-          areapointsList.push(areapoint);
-        });
-        dispatch(fetchAreaPointsAction(areapointsList));
+    let query = areapointsRef.orderBy("timestamp", "desc");
+    // orderByに加えてprefectureが空白ではなかったらwhere条件文でフィールドがprefectureのものを取得する
+    query =
+      prefecture !== "" ? query.where("prefecture", "==", prefecture) : query;
+
+    query.get().then((snapshots) => {
+      const areapointList = [];
+      snapshots.forEach((snapshot) => {
+        const areapoint = snapshot.data();
+        areapointList.push(areapoint);
       });
+      dispatch(fetchAreaPointsAction(areapointList));
+    });
   };
 };
 
-//データベース情報の削除処理
+//dbエリア情報の削除処理
 export const deleteAreaPoint = (id) => {
   return async (dispatch, getState) => {
     areapointsRef

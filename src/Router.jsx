@@ -4,7 +4,7 @@ import {
   SignIn,
   Home,
   EditAreaPointList,
-  EditAuthPage,
+  AreaPointDetail,
   PrefectureList,
   MiePrefecture,
   InstallationInfoEdit,
@@ -16,10 +16,9 @@ const Router = () => {
     <Switch>
       <Route exact path={"/signin"} component={SignIn} />
       <Auth>
-        <Route exact path={"(/)?"} component={Home} />
-        <Route exact path={"/prefecturelist"} component={PrefectureList} />
+        <Route exact path={"(/)?"} component={PrefectureList} />
+        {/* <Route exact path={"/prefecturelist"} component={PrefectureList} /> */}
         <Route exact path={"/mie"} component={MiePrefecture} />
-        <Route exact path={"/editauthpage"} component={EditAuthPage} />
         <Route
           path={"/installationinfoedit(/:id)?"}
           component={InstallationInfoEdit}
@@ -29,6 +28,7 @@ const Router = () => {
           path={"/editareapointlist"}
           component={EditAreaPointList}
         />
+        <Route exact path={"/areapoint/:id"} component={AreaPointDetail} />
       </Auth>
     </Switch>
   );

@@ -6,6 +6,8 @@ import { ConnectedRouter } from "connected-react-router";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import * as History from "history";
+import { theme } from "./assets/theme";
+import { MuiThemeProvider } from "@material-ui/core";
 
 const history = History.createBrowserHistory();
 
@@ -14,7 +16,9 @@ export const store = createStore(history);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
