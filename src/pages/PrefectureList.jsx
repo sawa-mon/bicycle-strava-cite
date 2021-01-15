@@ -12,6 +12,11 @@ export const PrefectureList = (props) => {
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
 
+  const mapContainerStyle = {
+    height: "250px",
+    width: "250px",
+  };
+
   //selectorがURLに関する値を持っているのでそれを取得
   const query = selector.router.location.search;
   // クエリパラメータ /^\先頭が ?prefecture=から始まる queryを.testメソッドで検証し trueの場合split()[1]とし、?以降の値を取り出す
@@ -40,6 +45,7 @@ export const PrefectureList = (props) => {
                   info={areapoint.info}
                   lat={areapoint.locationLat}
                   lng={areapoint.locationLng}
+                  mapContainerStyle={mapContainerStyle}
                 />
                 <CommentWrap>
                   <Button

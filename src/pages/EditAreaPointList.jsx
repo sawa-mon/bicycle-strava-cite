@@ -11,6 +11,11 @@ export const EditAreaPointList = () => {
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
 
+  const mapContainerStyle = {
+    height: "250px",
+    width: "250px",
+  };
+
   const query = selector.router.location.search;
   const prefecture = /^\?prefecture=/.test(query)
     ? query.split("?prefecture=")[1]
@@ -38,6 +43,7 @@ export const EditAreaPointList = () => {
                   info={areapoint.info}
                   lat={areapoint.locationLat}
                   lng={areapoint.locationLng}
+                  mapContainerStyle={mapContainerStyle}
                 />
               </MapWrap>
             </StyledInfo>

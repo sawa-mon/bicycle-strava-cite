@@ -6,7 +6,6 @@ import {
   EditAreaPointList,
   AreaPointDetail,
   PrefectureList,
-  MiePrefecture,
   InstallationInfoEdit,
 } from "./pages";
 import Auth from "./Auth";
@@ -17,8 +16,7 @@ const Router = () => {
       <Route exact path={"/signin"} component={SignIn} />
       <Auth>
         <Route exact path={"(/)?"} component={PrefectureList} />
-        {/* <Route exact path={"/prefecturelist"} component={PrefectureList} /> */}
-        <Route exact path={"/mie"} component={MiePrefecture} />
+        <Route exact path={"/home"} component={Home} />
         <Route
           path={"/installationinfoedit(/:id)?"}
           component={InstallationInfoEdit}

@@ -1,5 +1,6 @@
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import React, { useState } from "react";
+import styled from "styled-components";
 
 export const PlaceInfo = (props) => {
   const places = [
@@ -36,9 +37,13 @@ export const PlaceInfo = (props) => {
             setSelected(null);
           }}
         >
-          <div>{selected.info}</div>
+          <StyledInfo>{selected.info}</StyledInfo>
         </InfoWindow>
       ) : null}
     </div>
   );
 };
+
+const StyledInfo = styled.div`
+  color: black;
+`;
