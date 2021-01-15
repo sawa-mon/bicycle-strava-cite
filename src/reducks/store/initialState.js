@@ -5,6 +5,7 @@ const initialState = {
 
   users: {
     isSignedIn: false,
+    comment: [],
     email: "",
     icon: "",
     username: "",

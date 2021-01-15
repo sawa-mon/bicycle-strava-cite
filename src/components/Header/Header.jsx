@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     position: "fixed",
     width: "100%",
-    zIndex: 1,
+    zIndex: 10,
   },
   menuBar: {
     backgroundColor: "#fff",

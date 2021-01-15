@@ -4,10 +4,6 @@ import { PlaceInfo } from "./PlaceInfo";
 
 // 地図のサイズの指定
 const libraries = ["places"];
-const mapContainerStyle = {
-  height: "250px",
-  width: "250px",
-};
 
 // デフォルトUI（衛星写真オプション）キャンセル
 const options = {
@@ -34,7 +30,10 @@ export const GoogleMapsComponent = (props) => {
     <div>
       <GoogleMap
         id="map"
-        mapContainerStyle={mapContainerStyle}
+        mapContainerStyle={{
+          height: props.mapContainerStyle.height,
+          width: props.mapContainerStyle.width,
+        }}
         zoom={16}
         center={{
           lat: props.lat,

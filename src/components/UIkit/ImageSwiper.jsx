@@ -23,19 +23,21 @@ export const ImageSwiper = (props) => {
 
   return (
     <Swiper {...params}>
-      <StyledContainer>
-        {images.length === 0 ? (
+      {images.length === 0 ? (
+        <StyledContainer>
           <StyledWrap>
             <img src={NoImage} alt="no image" />
           </StyledWrap>
-        ) : (
-          images.map((image) => (
+        </StyledContainer>
+      ) : (
+        images.map((image, index) => (
+          <StyledContainer key={index}>
             <StyledWrap>
               <img src={image.path} alt="商品画像" />
             </StyledWrap>
-          ))
-        )}
-      </StyledContainer>
+          </StyledContainer>
+        ))
+      )}
     </Swiper>
   );
 };
@@ -50,7 +52,7 @@ const StyledContainer = styled.div`
 `;
 
 const StyledWrap = styled.div`
-  position: absolute; /* ← swiper.cssと優先順位が干渉するときは工夫してください */
+  position: absolute;
   top: 0;
   left: 0;
   img {
