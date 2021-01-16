@@ -22,10 +22,7 @@ export const HeaderMenus = (props) => {
         </Bage> */}
       </IconButton>
       <IconButton
-        edge="start"
         className={classes.menuButton}
-        color="inherit"
-        aria-label="menu"
         onClick={(event) => props.handleDrawerToggle(event)}
       >
         <MenuIcon />

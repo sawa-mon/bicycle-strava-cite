@@ -119,48 +119,53 @@ export const ClosableDrawer = (props) => {
         variant="temporary" //開閉
         anchor="right" //開閉開始位置
         open={props.open}
-        onClose={(event) => props.onClose(event)}
+        onClose={(e) => props.onClose(e)}
         classes={{ paper: classes.drawerPaper }}
         ModalProps={{ keepMounted: true }}
       >
-        <List>
-          <ListItem
-            button
-            key="logout"
-            onClose={(event) => props.onClose(event)}
-            onClick={(e) => {
-              dispatch(signOut());
-              selectMenu(e);
-            }}
-          >
-            <ListItemIcon>
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText primary={"ログアウト"} />
-          </ListItem>
-          {menus.map((menu) => (
+        <div
+          onClose={(e) => props.onClose(e)}
+          onKeyDown={(e) => props.onClose(e)}
+        >
+          <List>
             <ListItem
               button
-              key={menu.id}
-              onClick={(e) => menu.func(e, menu.value)}
+              key="logout"
+              onClose={(e) => props.onClose(e)}
+              onClick={(e) => {
+                dispatch(signOut());
+                selectMenu(e);
+              }}
             >
-              <ListItemIcon>{menu.icon}</ListItemIcon>
-              <ListItemText primary={menu.label} />
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary={"ログアウト"} />
             </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {filters.map((filter) => (
-            <ListItem
-              button
-              key={filter.id}
-              onClick={(e) => filter.func(e, filter.value)}
-            >
-              <ListItemText primary={filter.label} />
-            </ListItem>
-          ))}
-        </List>
+            {menus.map((menu) => (
+              <ListItem
+                button
+                key={menu.id}
+                onClick={(e) => menu.func(e, menu.value)}
+              >
+                <ListItemIcon>{menu.icon}</ListItemIcon>
+                <ListItemText primary={menu.label} />
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {filters.map((filter) => (
+              <ListItem
+                button
+                key={filter.id}
+                onClick={(e) => filter.func(e, filter.value)}
+              >
+                <ListItemText primary={filter.label} />
+              </ListItem>
+            ))}
+          </List>
+        </div>
       </Drawer>
     </nav>
   );
