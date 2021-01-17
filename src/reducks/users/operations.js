@@ -20,7 +20,7 @@ export const listenAuthState = () => {
                 isSignedIn: true,
                 icon: data.icon,
                 email: data.email,
-                username: data.displayName,
+                username: data.username,
               })
             );
           });

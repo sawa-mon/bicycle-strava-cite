@@ -17,19 +17,17 @@ const Router = () => {
       <Route exact path={"/signin"} component={SignIn} />
       <Auth>
         <Route exact path={"/home"} component={Home} />
-        <Reload>
-          <Route exact path={"(/)?"} component={PrefectureList} />
-          <Route
-            path={"/installationinfoedit(/:id)?"}
-            component={InstallationInfoEdit}
-          />
-          <Route
-            exact
-            path={"/editareapointlist"}
-            component={EditAreaPointList}
-          />
-          <Route exact path={"/areapoint/:id"} component={AreaPointDetail} />
-        </Reload>
+        <Route exact path={"(/)?"} component={PrefectureList} />
+        <Route
+          path={"/installationinfoedit(/:id)?"}
+          component={InstallationInfoEdit}
+        />
+        <Route
+          exact
+          path={"/editareapointlist"}
+          component={EditAreaPointList}
+        />
+        <Route exact path={"/areapoint/:id"} component={AreaPointDetail} />
       </Auth>
     </Switch>
   );

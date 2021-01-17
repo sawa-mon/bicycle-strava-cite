@@ -57,7 +57,7 @@ export const Header = () => {
     <div className={classes.root}>
       <AppBar className={classes.menuBar} position="fixed">
         <Toolbar className={classes.Toolbar}>
-          <StyledheaderLogo onClick={() => dispatch(push("/"))}>
+          <StyledheaderLogo onClick={() => dispatch(push("/home"))}>
             <img src={headerlogo} alt="mainlogo" />
             <h1>Racmap</h1>
           </StyledheaderLogo>
@@ -68,7 +68,9 @@ export const Header = () => {
           )}
         </Toolbar>
       </AppBar>
-      <ClosableDrawer open={open} onClose={handleDrawerToggle} />
+      {isSignedIn && (
+        <ClosableDrawer open={open} onClose={handleDrawerToggle} />
+      )}
     </div>
   );
 };

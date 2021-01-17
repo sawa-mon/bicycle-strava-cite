@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserName } from "../reducks/users/selectors";
-import { push } from "connected-react-router";
 import { signOut } from "../reducks/users/operations";
 
 export const Reload = ({ children }) => {
@@ -10,7 +9,7 @@ export const Reload = ({ children }) => {
   const name = getUserName(selector);
 
   useEffect(() => {
-    if (!name) {
+    if (name.length === 0) {
       dispatch(signOut());
     }
   }, []);

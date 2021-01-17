@@ -6,7 +6,7 @@ export const Button = (props) => {
     <StyledButton
       plane={props.plane}
       type={"button"}
-      onClick={() => props.onClick()}
+      onClick={props.onClick && (() => props.onClick())}
     >
       {props.label}
     </StyledButton>
