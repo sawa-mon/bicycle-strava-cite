@@ -12,7 +12,6 @@ import { ClosableDrawer, HeaderMenus } from "./index";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    position: "fixed",
     width: "100%",
     zIndex: 10,
   },
@@ -56,7 +55,7 @@ export const Header = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.menuBar} position="static">
+      <AppBar className={classes.menuBar} position="fixed">
         <Toolbar className={classes.Toolbar}>
           <StyledheaderLogo onClick={() => dispatch(push("/"))}>
             <img src={headerlogo} alt="mainlogo" />

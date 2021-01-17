@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { getThemeProps, makeStyles } from "@material-ui/styles";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { db, FirebaseTimestamp } from "../firebase/index";
 import { GoogleMapsComponent, ImageSwiper } from "../components/UIkit";
@@ -7,8 +7,6 @@ import styled from "styled-components";
 import noImageAvatar from "../assets/Images/noImageAvatar.svg";
 import submitIcon from "../assets/Images/submitIcon.svg";
 import { getUserIcon, getUserName } from "../reducks/users/selectors";
-import { addCommentToDB } from "../reducks/areapoints/operation";
-import { getInputComment } from "../reducks/areapoints/selector";
 
 const useStyles = makeStyles((theme) => ({
   sliderBox: {
@@ -53,7 +51,25 @@ export const AreaPointDetail = () => {
   };
 
   const [areapoint, setAreapoint] = useState(null);
-  const [comment, setComment] = useState("");
+  const [inputComment, setInputComment] = useState("");
+  const [addComments, setAddComments] = useState("");
+
+  const areapointRef = db.collection("areapoints").doc(id);
+  const commentRef = areapointRef.collection("comments");
+  const timestamp = FirebaseTimestamp.now();
+
+  const addInputComment = () => {
+    if (!inputComment) {
+      return;
+    }
+    commentRef.add({
+      added_at: timestamp,
+      comment: inputComment,
+      name: userName,
+      icon: userIcon,
+    });
+    setInputComment("");
+  };
 
   useEffect(() => {
     db.collection("areapoints")
@@ -65,19 +81,31 @@ export const AreaPointDetail = () => {
       });
   }, []);
 
-  // const addInputComment = () => {
-  //   const timestamp = FirebaseTimestamp.now();
-  //   const data = {
-  //     id: id,
-  //     added_at: timestamp,
-  //     comment: comment,
-  //     usename: userName,
-  //     icon: userIcon,
-  //   };
-  //   db.collection("areapoints").doc(id).collection("comments").add(data);
-  //   setComment("");
-  //   console.log(data);
-  // };
+  useEffect(() => {
+    const unSub = commentRef
+      .orderBy("added_at", "desc")
+      .onSnapshot((snapshot) =>
+        setAddComments(
+          snapshot.docs.map((doc) => ({
+            key: doc,
+            added_at: {
+              year: doc.data().added_at.toDate().getFullYear(),
+              month: doc.data().added_at.toDate().getMonth() + 1,
+              day: doc.data().added_at.toDate().getDate(),
+              hour: doc.data().added_at.toDate().getHours(),
+              minit: doc.data().added_at.toDate().getMinutes(),
+              second: doc.data().added_at.toDate().getSeconds(),
+            },
+            comment: doc.data().comment,
+            name: doc.data().name,
+            icon: doc.data().icon,
+          }))
+        )
+      );
+    return () => {
+      unSub();
+    };
+  }, []);
 
   return (
     <StyledSection>
@@ -89,45 +117,72 @@ export const AreaPointDetail = () => {
             </div>
             <div className={classes.detail}>
               <StyledTitle>
-                <h2>ラック設置ポイント</h2>
+                <h2>〜ラック設置ポイント〜</h2>
                 <p>{areapoint.installation}</p>
-                <h2>ラックの詳細位置</h2>
+                <h2>〜ラックの詳細位置〜</h2>
                 <p>{areapoint.info}</p>
               </StyledTitle>
             </div>
           </StyledGrid>
           <StyledMapAndComent>
-            <Wrap>
+            <CommentWraper>
               <StyledTitle>
-                <h2>このエリアに関する投稿コメント</h2>
-                <p>ご自由にコメントを入力して下さい</p>
-                {/* <textarea
-                  placeholder="このポイント付近のパン屋さん美味しいよ"
-                  value={comment}
-                  onChange={(event) => setComment(event.target.value)}
-                  cols={20}
-                  rows={2}
-                />
-                <StyledSubmitButton
-                  type="button"
-                  onClick={() => addInputComment()}
-                >
-                  <img src={submitIcon} alt="bytton-icon" />
-                </StyledSubmitButton> */}
+                <h2>〜エリアに関する投稿コメント〜</h2>
+                <p>ご自由にコメント入力して投稿頂けます</p>
+                <StyledUserIconAreaWrap>
+                  <StyledIcon src={userIcon} />
+                  <textarea
+                    placeholder="投稿例：このポイント付近のパン屋さん美味しいよ！など、他の方にもお知らせするのにぜひ使ってみて下さい"
+                    value={inputComment}
+                    onChange={(event) => setInputComment(event.target.value)}
+                    cols={35}
+                    rows={3}
+                  />
+                  <StyledSubmitButton
+                    type="button"
+                    onClick={() => dispatch(addInputComment)}
+                  >
+                    <img src={submitIcon} alt="bytton-icon" />
+                  </StyledSubmitButton>
+                </StyledUserIconAreaWrap>
+                {addComments.length >= 1 && (
+                  <StyledCommentWrapper>
+                    {addComments.map((addcomment, index) => (
+                      <div key={index}>
+                        <StyledCommentUserInfoArea>
+                          <StyledIcon src={addcomment.icon} />
+                          <StyledPostInfoWrap>
+                            <p>投稿者：{addcomment.name}</p>
+                            <span>
+                              投稿日時：
+                              {addcomment.added_at.year}年
+                              {addcomment.added_at.month}月
+                              {addcomment.added_at.day}日
+                              {addcomment.added_at.hour}時
+                              {addcomment.added_at.minit}分
+                              {addcomment.added_at.second}秒
+                            </span>
+                          </StyledPostInfoWrap>
+                        </StyledCommentUserInfoArea>
+                        <p>{addcomment.comment}</p>
+                      </div>
+                    ))}
+                  </StyledCommentWrapper>
+                )}
               </StyledTitle>
-            </Wrap>
-            <Wrap>
+            </CommentWraper>
+            <MapAreaWrap>
               <StyledGoogleMap>
-                <h2>GooleMap</h2>
+                <h2>〜GooleMap〜</h2>
                 <StyledText>ラック設置ポイントの投稿者</StyledText>
-                <StyledAreaWrap>
+                <StyledUserIconAreaWrap>
                   <StyledIcon
                     src={areapoint.icon ? areapoint.icon : noImageAvatar}
                   />
                   <StyledText>
                     {areapoint.username ? areapoint.username : "UnknownUser"}
                   </StyledText>
-                </StyledAreaWrap>
+                </StyledUserIconAreaWrap>
               </StyledGoogleMap>
               <GoogleMapsComponent
                 info={areapoint.info}
@@ -135,7 +190,7 @@ export const AreaPointDetail = () => {
                 lng={areapoint.locationLng}
                 mapContainerStyle={mapContainerStyle}
               />
-            </Wrap>
+            </MapAreaWrap>
           </StyledMapAndComent>
         </div>
       )}
@@ -172,25 +227,31 @@ const StyledTitle = styled.div`
   }
 `;
 
-const StyledGoogleMap = styled.div`
-  h2 {
-    font-size: 30px;
-    font-weight: normal;
-    font-style: oblique;
-    margin-top: 30px;
-  }
-  @media screen and (min-width: 600px) {
-    margin-top: -60px;
-  }
-  @media screen and (min-width: 800px) {
-    margin-top: 10px;
+const MapAreaWrap = styled.div`
+  display: grid;
+  place-items: center;
+  margin: 30px auto 0 auto;
+  width: 400px;
+  @media screen and (max-width: 600px) {
+    width: 320px;
   }
 `;
 
-const Wrap = styled.div`
-  display: grid;
-  place-items: center;
-  margin: 0 auto;
+const StyledGoogleMap = styled.div`
+  margin: 0 auto 0 10px;
+
+  h2 {
+    font-size: 27px;
+    font-weight: normal;
+    font-style: oblique;
+  }
+  @media screen and (max-width: 800px) {
+    margin-top: -30px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 300px;
+    margin-top: -60px;
+  }
 `;
 
 const StyledIcon = styled.img`
@@ -203,8 +264,20 @@ const StyledIcon = styled.img`
   background: linear-gradient(46deg, #e06218 0%, #354fdc 100%);
 `;
 
-const StyledAreaWrap = styled.div`
+const StyledUserIconAreaWrap = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  textarea {
+    border-radius: 10px;
+    background: none;
+    outline: none;
+    border: ridge;
+    color: white;
+    @media screen and (max-width: 800px) {
+    }
+  }
 `;
 
 const StyledText = styled.p`
@@ -217,16 +290,68 @@ const StyledText = styled.p`
 
 const StyledMapAndComent = styled.div`
   display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1024px;
+  @media screen and (max-width: 800px) {
+    margin-top: -40px;
+    flex-direction: column;
+  }
 `;
 
 const StyledSubmitButton = styled.button`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: 35px;
+  height: 35px;
+  border-radius: 17.5px;
   background: orange;
   border: none;
   outline: none;
+  margin: 0 25px 0 25px;
+  @media screen and (max-width: 600px) {
+    margin: 15px;
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+
   :hover {
     opacity: 0.7;
+  }
+`;
+
+const CommentWraper = styled.div`
+  width: 400px;
+  margin: 63px auto 0px auto;
+  @media screen and (max-width: 800px) {
+    margin: 50px auto 100px auto;
+  }
+  @media screen and (max-width: 600px) {
+    width: 320px;
+  }
+`;
+
+const StyledCommentWrapper = styled.div`
+  height: 300px;
+  overflow: auto;
+  border: 1px solid;
+  border-radius: 5px;
+`;
+
+const StyledCommentUserInfoArea = styled.div`
+  display: flex;
+`;
+
+const StyledPostInfoWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  p {
+    margin: 0;
+    font-size: 18px;
+  }
+  span {
+    font-size: 12px;
   }
 `;
