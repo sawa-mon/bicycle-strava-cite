@@ -69,13 +69,13 @@ export const saveAddPoint = (
       id = ref.id;
       data.id = id;
       data.timestamp = timestamp;
-
-      const userInfo = getState().users;
-      const username = userInfo.username;
-      const icon = userInfo.icon;
-      data.username = username;
-      data.icon = icon;
     }
+
+    const userInfo = getState().users;
+    const username = userInfo.username;
+    const icon = userInfo.icon;
+    data.username = username;
+    data.icon = icon;
 
     return areapointsRef
       .doc(id)

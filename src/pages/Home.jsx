@@ -4,10 +4,6 @@ import styled from "styled-components";
 import { push } from "connected-react-router";
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {});
-
   return (
     <Section>
       <StyledContainer></StyledContainer>

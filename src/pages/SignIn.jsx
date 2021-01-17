@@ -103,6 +103,7 @@ const SignIn = () => {
 export default SignIn;
 
 const Section = styled.div`
+  min-width: 300px;
   background: linear-gradient(46deg, #e06218 0%, #354fdc 100%);
   width: 100vw;
   height: 100vh;
@@ -114,7 +115,7 @@ const Section = styled.div`
 
 const StyledMainTitle = styled.h2`
   margin: 0 auto 0 auto;
-  padding-top: 35px;
+  padding-top: 5px;
   font-size: 23px;
   display: grid;
   place-items: center;

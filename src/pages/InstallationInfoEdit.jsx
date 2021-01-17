@@ -124,22 +124,26 @@ export const InstallationInfoEdit = () => {
           value={prefecture}
         />
         <Wrap>
-          <Button
-            label="この内容で登録する"
-            onClick={() =>
-              dispatch(
-                saveAddPoint(
-                  id,
-                  info,
-                  images,
-                  installation,
-                  locationLat,
-                  locationLng,
-                  prefecture
+          {info && installation && locationLat && locationLng && prefecture ? (
+            <Button
+              label="この内容で登録する"
+              onClick={() =>
+                dispatch(
+                  saveAddPoint(
+                    id,
+                    info,
+                    images,
+                    installation,
+                    locationLat,
+                    locationLng,
+                    prefecture
+                  )
                 )
-              )
-            }
-          />
+              }
+            />
+          ) : (
+            <Button plane label="未入力項目入力があります" />
+          )}
         </Wrap>
       </StyledDiv>
     </StyledSection>

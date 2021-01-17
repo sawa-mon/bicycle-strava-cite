@@ -14,11 +14,13 @@ const useStyles = makeStyles((theme) => ({
       margin: "5px auto 10px auto",
       height: 200,
       width: 320,
+      outLine: "none",
     },
     [theme.breakpoints.up("sm")]: {
       margin: "15px auto 0 auto",
       height: 250,
       width: 400,
+      outLine: "none",
     },
   },
   detail: {
@@ -127,49 +129,49 @@ export const AreaPointDetail = () => {
           <StyledMapAndComent>
             <CommentWraper>
               <StyledTitle>
-                <h2>〜エリアに関する投稿コメント〜</h2>
+                <h2>〜エリアに関するコメント〜</h2>
                 <p>ご自由にコメント入力して投稿頂けます</p>
-                <StyledUserIconAreaWrap>
-                  <StyledIcon src={userIcon} />
-                  <textarea
-                    placeholder="投稿例：このポイント付近のパン屋さん美味しいよ！など、他の方にもお知らせするのにぜひ使ってみて下さい"
-                    value={inputComment}
-                    onChange={(event) => setInputComment(event.target.value)}
-                    cols={35}
-                    rows={3}
-                  />
-                  <StyledSubmitButton
-                    type="button"
-                    onClick={() => dispatch(addInputComment)}
-                  >
-                    <img src={submitIcon} alt="bytton-icon" />
-                  </StyledSubmitButton>
-                </StyledUserIconAreaWrap>
-                {addComments.length >= 1 && (
-                  <StyledCommentWrapper>
-                    {addComments.map((addcomment, index) => (
-                      <div key={index}>
-                        <StyledCommentUserInfoArea>
-                          <StyledIcon src={addcomment.icon} />
-                          <StyledPostInfoWrap>
-                            <p>投稿者：{addcomment.name}</p>
-                            <span>
-                              投稿日時：
-                              {addcomment.added_at.year}年
-                              {addcomment.added_at.month}月
-                              {addcomment.added_at.day}日
-                              {addcomment.added_at.hour}時
-                              {addcomment.added_at.minit}分
-                              {addcomment.added_at.second}秒
-                            </span>
-                          </StyledPostInfoWrap>
-                        </StyledCommentUserInfoArea>
-                        <p>{addcomment.comment}</p>
-                      </div>
-                    ))}
-                  </StyledCommentWrapper>
-                )}
               </StyledTitle>
+              <StyledUserIconAreaWrap>
+                <StyledIcon src={userIcon} />
+                <textarea
+                  placeholder="投稿例：このポイント付近のパン屋さん美味しいよ！など、他の方にもお知らせするのにぜひ使ってみて下さい"
+                  value={inputComment}
+                  onChange={(event) => setInputComment(event.target.value)}
+                  cols={35}
+                  rows={3}
+                />
+                <StyledSubmitButton
+                  type="button"
+                  onClick={() => dispatch(addInputComment)}
+                >
+                  <img src={submitIcon} alt="bytton-icon" />
+                </StyledSubmitButton>
+              </StyledUserIconAreaWrap>
+              {addComments.length >= 1 && (
+                <StyledCommentWrapper>
+                  {addComments.map((addcomment, index) => (
+                    <div key={index}>
+                      <StyledCommentUserInfoArea>
+                        <StyledIcon src={addcomment.icon} />
+                        <StyledPostInfoWrap>
+                          <p>投稿者：{addcomment.name}</p>
+                          <span>
+                            投稿日時：
+                            {addcomment.added_at.year}年
+                            {addcomment.added_at.month}月
+                            {addcomment.added_at.day}日
+                            {addcomment.added_at.hour}時
+                            {addcomment.added_at.minit}分
+                            {addcomment.added_at.second}秒
+                          </span>
+                        </StyledPostInfoWrap>
+                      </StyledCommentUserInfoArea>
+                      <p>{addcomment.comment}</p>
+                    </div>
+                  ))}
+                </StyledCommentWrapper>
+              )}
             </CommentWraper>
             <MapAreaWrap>
               <StyledGoogleMap>
@@ -201,6 +203,7 @@ export const AreaPointDetail = () => {
 const StyledSection = styled.div`
   min-height: 100vh;
   margin-top: 10px;
+  min-width: 300px;
 `;
 
 const StyledGrid = styled.div`
@@ -238,7 +241,7 @@ const MapAreaWrap = styled.div`
 `;
 
 const StyledGoogleMap = styled.div`
-  margin: 0 auto 0 10px;
+  margin: 0 auto 0 auto;
 
   h2 {
     font-size: 27px;
@@ -246,7 +249,7 @@ const StyledGoogleMap = styled.div`
     font-style: oblique;
   }
   @media screen and (max-width: 800px) {
-    margin-top: -30px;
+    margin: -30px auto 0 10px;
   }
   @media screen and (max-width: 600px) {
     width: 300px;
@@ -336,6 +339,9 @@ const StyledCommentWrapper = styled.div`
   overflow: auto;
   border: 1px solid;
   border-radius: 5px;
+  p {
+    margin: 5px 10px 25px 10px;
+  }
 `;
 
 const StyledCommentUserInfoArea = styled.div`

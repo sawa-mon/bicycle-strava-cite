@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -7,12 +7,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/styles";
-import SearchIcon from "@material-ui/icons/Search";
 import AddCirclreIcon from "@material-ui/icons/AddCircle";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import TrackChangesIcon from "@material-ui/icons/TrackChanges";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { TextInput } from "../UIkit/index";
 import { push } from "connected-react-router";
 import { signOut } from "../../reducks/users/operations";
 import { db } from "../../firebase/index";
@@ -146,7 +144,10 @@ export const ClosableDrawer = (props) => {
               <ListItem
                 button
                 key={menu.id}
-                onClick={(e) => menu.func(e, menu.value)}
+                onClick={(e) => {
+                  menu.func(e, menu.value);
+                  selectMenu(e);
+                }}
               >
                 <ListItemIcon>{menu.icon}</ListItemIcon>
                 <ListItemText primary={menu.label} />
@@ -159,7 +160,9 @@ export const ClosableDrawer = (props) => {
               <ListItem
                 button
                 key={filter.id}
-                onClick={(e) => filter.func(e, filter.value)}
+                onClick={(e) => {
+                  filter.func(e, filter.value);
+                }}
               >
                 <ListItemText primary={filter.label} />
               </ListItem>

@@ -39,12 +39,12 @@ export const EditAreaPointList = () => {
                 {areapoint.installation}
               </StyledTitle>
               <MapWrap>
-                <GoogleMapsComponent
+                {/* <GoogleMapsComponent
                   info={areapoint.info}
                   lat={areapoint.locationLat}
                   lng={areapoint.locationLng}
                   mapContainerStyle={mapContainerStyle}
-                />
+                /> */}
               </MapWrap>
             </StyledInfo>
           ))}

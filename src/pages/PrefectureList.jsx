@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { getAreaPoints } from "../reducks/areapoints/selector";
 import { fetchAreaPoints } from "../reducks/areapoints/operation";
 
-export const PrefectureList = (props) => {
+export const PrefectureList = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
@@ -41,12 +41,12 @@ export const PrefectureList = (props) => {
                 {areapoint.installation}
               </StyledTitle>
               <MapWrap>
-                <GoogleMapsComponent
+                {/* <GoogleMapsComponent
                   info={areapoint.info}
                   lat={areapoint.locationLat}
                   lng={areapoint.locationLng}
                   mapContainerStyle={mapContainerStyle}
-                />
+                /> */}
                 <CommentWrap>
                   <Button
                     plane
