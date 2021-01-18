@@ -1,20 +1,33 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, EditButton, GoogleMapsComponent } from "../components/UIkit";
+import { EditButton, ImageSwiper } from "../components/UIkit";
 import { fetchAreaPoints } from "../reducks/areapoints/operation";
 import { getAreaPoints } from "../reducks/areapoints/selector";
 import styled from "styled-components";
-import { push } from "connected-react-router";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  sliderBox: {
+    [theme.breakpoints.down("sm")]: {
+      margin: "0 auto",
+      height: 200,
+      width: 300,
+      outLine: "none",
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: "0 auto",
+      height: 200,
+      width: 300,
+      outLine: "none",
+    },
+  },
+}));
 
 export const EditAreaPointList = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
-
-  const mapContainerStyle = {
-    height: "250px",
-    width: "250px",
-  };
 
   const query = selector.router.location.search;
   const prefecture = /^\?prefecture=/.test(query)
@@ -39,12 +52,9 @@ export const EditAreaPointList = () => {
                 {areapoint.installation}
               </StyledTitle>
               <MapWrap>
-                {/* <GoogleMapsComponent
-                  info={areapoint.info}
-                  lat={areapoint.locationLat}
-                  lng={areapoint.locationLng}
-                  mapContainerStyle={mapContainerStyle}
-                /> */}
+                <div className={classes.sliderBox}>
+                  <ImageSwiper images={areapoint.images} />
+                </div>
               </MapWrap>
             </StyledInfo>
           ))}

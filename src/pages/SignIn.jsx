@@ -70,18 +70,19 @@ const SignIn = () => {
         <>
           <StyledMainTitle>今日、自転車でどこ行こう？</StyledMainTitle>
           <Styledcoment>
-            バイクラックがあるとこで休憩したい
+            バイクラックがあるとこで休憩したい。
             そういう情報を確認するツールって？
           </Styledcoment>
           <Styledcoment>
-            そんな時に使ってみてくださいすると、新しい発見があるかも
+            そんな時に使ってみてください。すると、新しい発見があるかも。
+            グルメを楽しむ。景色を楽しむ。etc...
           </Styledcoment>
           <Styledcoment>
             新たな発見を情報ページの投稿機能を使って
-            コメントとして残すこともできます
+            コメントとして残すこともできます。
           </Styledcoment>
           <Styledcoment>
-            知らなかった場所や気になるポイントへぜひ実際に足を運んでみて下さい
+            知らなかった場所や気になるポイントへぜひ実際に足を運んでみて下さい。
           </Styledcoment>
           <StyledInfo>いずれかのSNSアカウントでログインして下さい</StyledInfo>
           {loginMenus.map((menu) => (

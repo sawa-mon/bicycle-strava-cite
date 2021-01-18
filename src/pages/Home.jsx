@@ -2,11 +2,29 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { push } from "connected-react-router";
+import HomeImage from "../assets/Images/homepage-image.png";
+import { Button } from "../components/UIkit";
 
 const Home = () => {
+  const dispatch = useDispatch();
   return (
     <Section>
-      <StyledContainer></StyledContainer>
+      <StyledContainer>
+        <img src={HomeImage} alt="homepageimage" />
+        <h2>バイクラックのあるポイントには寄ってみたくなる</h2>
+        <p>スタンドの付いていない事が多いスポーツバイク</p>
+        <p>そんな自転車に乗っていて自然に利用するバイクラック</p>
+        <p>バイクラックが置いてあるところはグルメも美味しい</p>
+        <p>登った先の景色がいいところかもしれません</p>
+        <p>行ったことのないポイントを見つけて出掛けてみよう</p>
+      </StyledContainer>
+      <StyledButton>
+        <Button
+          label="実際に使ってみる"
+          plane
+          onClick={() => dispatch(push("/editareapointlist"))}
+        />
+      </StyledButton>
     </Section>
   );
 };
@@ -14,11 +32,40 @@ const Home = () => {
 export default Home;
 
 const Section = styled.section`
-  min-height: 100vh;
   margin: auto;
+  min-width: 300px;
 `;
 
 const StyledContainer = styled.div`
   display: grid;
+  place-items: start;
+  margin: 0 auto 0 auto;
+  img {
+    width: 100%;
+  }
+  h2 {
+    padding: 10px;
+    margin: 0 auto;
+    font-size: 30px;
+    min-width: 705px;
+    @media screen and (max-width: 600px) {
+      font-size: 24px;
+      min-width: 310px;
+    }
+  }
+  p {
+    padding: 10px;
+    margin: 0 auto;
+    font-size: 20px;
+    min-width: 310px;
+  }
+`;
+
+const StyledButton = styled.div`
+  margin-top: 60px;
+  display: grid;
   place-items: center;
+  @media screen and (max-width: 600px) {
+    margin-top: 40px;
+  }
 `;
