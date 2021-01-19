@@ -6,3 +6,4 @@ export { InstallationInfoEdit } from "./InstallationInfoEdit";
 export { UserInfo } from "./UserInfo";
 export { AreaPointDetail } from "./AreaPointDetail";
 export { Reload } from "./ReLoad";
+export { TermsOfService } from "./TermsOfService";

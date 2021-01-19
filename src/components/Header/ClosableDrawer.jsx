@@ -15,6 +15,7 @@ import { push } from "connected-react-router";
 import { signOut } from "../../reducks/users/operations";
 import { db } from "../../firebase/index";
 import ExploreIcon from "@material-ui/icons/Explore";
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -61,6 +62,13 @@ export const ClosableDrawer = (props) => {
   ]);
 
   const menus = [
+    {
+      func: selectMenu,
+      label: "利用規約",
+      icon: <ImportContactsIcon />,
+      id: "add",
+      value: "/termsofservice",
+    },
     {
       func: selectMenu,
       label: "Mapポイント情報追加",

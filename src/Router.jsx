@@ -9,6 +9,7 @@ import {
   InstallationInfoEdit,
   Reload,
   UserInfo,
+  TermsOfService,
 } from "./pages";
 import Auth from "./Auth";
 
@@ -26,6 +27,7 @@ const Router = () => {
         />
         <Route exact path={"/areapoint/edit"} component={EditAreaPointList} />
         <Route exact path={"/areapoint/:id"} component={AreaPointDetail} />
+        <Route exact path={"/termsofservice"} component={TermsOfService} />
       </Auth>
     </Switch>
   );
