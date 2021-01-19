@@ -108,14 +108,16 @@ export const InstallationInfoEdit = () => {
           type="number"
           placeholder="経度：34.343434"
           value={locationLat}
-          min={0}
+          min={20}
+          min={46}
         />
         <StyledInput
           onChange={inputLocationLng}
           type="number"
           placeholder="緯度：137.13713"
           value={locationLng}
-          min={0}
+          min={122}
+          max={154}
           step={0.00001}
         />
         <SelectBox
