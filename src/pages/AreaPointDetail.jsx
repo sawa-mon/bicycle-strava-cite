@@ -145,7 +145,7 @@ export const AreaPointDetail = () => {
                   type="button"
                   onClick={() => dispatch(addInputComment)}
                 >
-                  <img src={submitIcon} alt="bytton-icon" />
+                  <img src={submitIcon} alt="button-icon" />
                 </StyledSubmitButton>
               </StyledUserIconAreaWrap>
               {addComments.length >= 1 && (
@@ -301,15 +301,25 @@ const StyledMapAndComent = styled.div`
 `;
 
 const StyledSubmitButton = styled.button`
-  width: 35px;
-  height: 35px;
-  border-radius: 17.5px;
+  width: 45px;
+  height: 45px;
+  border-radius: 22.5px;
   background: orange;
   border: none;
   outline: none;
-  margin: 0 25px 0 25px;
+  margin: 20px;
+  img {
+    width: 35px;
+    height: 35px;
+  }
   @media screen and (max-width: 600px) {
-    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 17.5px;
+    margin: 10px;
     img {
       width: 25px;
       height: 25px;
