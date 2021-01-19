@@ -201,8 +201,7 @@ export const AreaPointDetail = () => {
 };
 
 const StyledSection = styled.div`
-  min-height: 100vh;
-  margin-top: 10px;
+  margin: 10px auto 40px auto;
   min-width: 300px;
 `;
 
