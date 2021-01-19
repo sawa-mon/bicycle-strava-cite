@@ -155,7 +155,7 @@ export const AreaPointDetail = () => {
                       <StyledCommentUserInfoArea>
                         <StyledIcon src={addcomment.icon} />
                         <StyledPostInfoWrap>
-                          <p>投稿者：{addcomment.name}</p>
+                          <p>投稿者：@{addcomment.name}</p>
                           <span>
                             投稿日時：
                             {addcomment.added_at.year}年
@@ -278,8 +278,7 @@ const StyledUserIconAreaWrap = styled.div`
     outline: none;
     border: ridge;
     color: white;
-    @media screen and (max-width: 800px) {
-    }
+    font-size: 17px;
   }
 `;
 

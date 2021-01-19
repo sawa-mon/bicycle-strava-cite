@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -63,10 +63,17 @@ export const ClosableDrawer = (props) => {
   const menus = [
     {
       func: selectMenu,
+      label: "Mapポイント情報追加",
+      icon: <AddCirclreIcon />,
+      id: "add",
+      value: "/installationinfoedit",
+    },
+    {
+      func: selectMenu,
       label: "ユーザープロフィール",
       icon: <AccountCircleIcon />,
       id: "userpage",
-      value: "/",
+      value: "/userinfo",
     },
     {
       func: selectMenu,
@@ -75,19 +82,13 @@ export const ClosableDrawer = (props) => {
       id: "googlemap",
       value: "https://www.google.co.jp/maps",
     },
+
     {
       func: selectMenu,
-      label: "Mapポイント情報変更",
-      icon: <TrackChangesIcon />,
+      label: "", //"管理者用画面",
+      icon: "", //<TrackChangesIcon />,
       id: "editmap",
-      value: "/editareapointlist",
-    },
-    {
-      func: selectMenu,
-      label: "Mapポイント情報追加",
-      icon: <AddCirclreIcon />,
-      id: "add",
-      value: "/installationinfoedit",
+      value: "/areapoint/edit",
     },
   ];
 
