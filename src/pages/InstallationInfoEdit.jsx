@@ -21,7 +21,6 @@ export const InstallationInfoEdit = () => {
   const [locationLng, setLocationLng] = useState("");
   const [prefecture, setPrefecture] = useState("");
   const [prefectures, setPrefectures] = useState([]);
-  const [latCheck, setLatCheck] = useState(false);
 
   const inputInsatallation = useCallback(
     (event) => {

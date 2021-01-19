@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { push } from "connected-react-router";
@@ -18,11 +18,30 @@ const Home = () => {
         <p>登った先の景色がいいところかもしれません</p>
         <p>行ったことのないポイントを見つけて出掛けてみよう</p>
       </StyledContainer>
+      <StyledContainer>
+        <h2>使い方は簡単</h2>
+        <p>
+          <strong>右上のメニューバー</strong>から対象地域を検索して見るだけ！
+        </p>
+        <p>その場所に行くかどうかはあなた次第！</p>
+        <p>
+          もし、新しいバイクラックを見つけたら
+          <br />
+          設置ポイント追加機能(画像UP可)を使って他の人にも
+          <br />
+          そのことを知らせてあげよう！
+        </p>
+        <p>
+          実際に行ってみて近くに良いお店があった！や、感想など
+          <br />
+          コメント欄に書き残してその場所の情報をサイクリスト同士共有しよう！
+        </p>
+      </StyledContainer>
       <StyledButton>
         <Button
           label="実際に使ってみる"
           plane
-          onClick={() => dispatch(push("/editareapointlist"))}
+          onClick={() => dispatch(push("/"))}
         />
       </StyledButton>
     </Section>
@@ -33,7 +52,6 @@ export default Home;
 
 const Section = styled.section`
   margin: auto;
-  min-width: 300px;
 `;
 
 const StyledContainer = styled.div`
@@ -44,20 +62,28 @@ const StyledContainer = styled.div`
     width: 100%;
   }
   h2 {
-    padding: 10px;
+    display: grid;
+    place-items: center;
+    padding: 25px;
     margin: 0 auto;
     font-size: 30px;
-    min-width: 705px;
     @media screen and (max-width: 600px) {
       font-size: 24px;
-      min-width: 310px;
+      min-width: 300px;
     }
   }
   p {
+    text-align: center;
     padding: 10px;
     margin: 0 auto;
     font-size: 20px;
-    min-width: 310px;
+    min-width: 300px;
+    @media screen and (max-width: 600px) {
+      text-align: left;
+    }
+  }
+  strong {
+    color: blue;
   }
 `;
 
