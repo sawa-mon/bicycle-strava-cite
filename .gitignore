@@ -32,4 +32,6 @@ storage.rules
 
 .eslintcache
 
-/src/dataset
+/src/
+dataset
+firebase-debug.log
