@@ -106,7 +106,7 @@ export const PrefectureList = () => {
 const StyledContainer = styled.section`
   display: grid;
   place-items: center;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 40px auto;
 
   @media screen and (max-width: 700px) {
     h2 {

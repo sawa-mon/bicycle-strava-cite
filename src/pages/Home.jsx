@@ -88,7 +88,7 @@ const StyledContainer = styled.div`
 `;
 
 const StyledButton = styled.div`
-  margin-top: 60px;
+  margin: 60px auto 40px auto;
   display: grid;
   place-items: center;
   @media screen and (max-width: 600px) {
