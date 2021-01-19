@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, SelectBox } from "../components/UIkit";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -22,18 +22,18 @@ export const InstallationInfoEdit = () => {
   const [prefecture, setPrefecture] = useState("");
   const [prefectures, setPrefectures] = useState([]);
 
-  const inputInsatallation = useCallback(
-    (event) => {
-      setInstallation(event.target.value);
-    },
-    [setInstallation]
-  );
-
   const inputInfo = useCallback(
     (event) => {
       setInfo(event.target.value);
     },
     [setInfo]
+  );
+
+  const inputInsatallation = useCallback(
+    (event) => {
+      setInstallation(event.target.value);
+    },
+    [setInstallation]
   );
 
   const inputLocationLat = useCallback(
@@ -108,17 +108,14 @@ export const InstallationInfoEdit = () => {
           type="number"
           placeholder="経度：34.343434"
           value={locationLat}
-          min={20}
-          max={46}
-          step={0.00001}
+          min={0}
         />
         <StyledInput
           onChange={inputLocationLng}
           type="number"
           placeholder="緯度：137.13713"
           value={locationLng}
-          min={122}
-          max={154}
+          min={0}
           step={0.00001}
         />
         <SelectBox
@@ -129,7 +126,6 @@ export const InstallationInfoEdit = () => {
         <Wrap>
           {info && installation && locationLat && locationLng && prefecture ? (
             <Button
-              type="submit"
               label="この内容で登録する"
               onClick={() =>
                 dispatch(
@@ -160,7 +156,7 @@ const StyledInput = styled.input`
   margin-bottom: 40px;
 `;
 
-const StyledDiv = styled.form`
+const StyledDiv = styled.div`
   display: grid;
   place-items: center;
 `;
