@@ -66,7 +66,7 @@ export const ClosableDrawer = (props) => {
       func: selectMenu,
       label: "利用規約",
       icon: <ImportContactsIcon />,
-      id: "add",
+      id: "terms",
       value: "/termsofservice",
     },
     {
@@ -75,6 +75,13 @@ export const ClosableDrawer = (props) => {
       icon: <AddCirclreIcon />,
       id: "add",
       value: "/installationinfoedit",
+    },
+    {
+      func: selectMenu,
+      label: "使い方を見る",
+      icon: <ImportContactsIcon />,
+      id: "use",
+      value: "/home",
     },
     {
       func: selectMenu,
@@ -96,7 +103,7 @@ export const ClosableDrawer = (props) => {
       label: "", //"管理者用画面",
       icon: "", //<TrackChangesIcon />,
       id: "editmap",
-      value: "/areapoint/edit",
+      value: "/areapointedit",
     },
   ];
 
