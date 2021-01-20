@@ -53,7 +53,7 @@ export const googleSignIn = () => {
             dispatch(signInAction(userData));
           })
           .then(() => {
-            dispatch(push("/home"));
+            dispatch(push("/"));
           })
           .catch(() => {
             alert("ログインに失敗しました");
@@ -87,7 +87,7 @@ export const twitterSignIn = () => {
             dispatch(signInAction(userData));
           })
           .then(() => {
-            dispatch(push("/home"));
+            dispatch(push("/"));
           })
           .catch(() => {
             alert("ログインに失敗しました");

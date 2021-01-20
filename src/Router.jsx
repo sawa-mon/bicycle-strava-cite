@@ -25,7 +25,7 @@ const Router = () => {
           path={"/installationinfoedit(/:id)?"}
           component={InstallationInfoEdit}
         />
-        <Route exact path={"/areapoint/edit"} component={EditAreaPointList} />
+        <Route exact path={"/areapointedit"} component={EditAreaPointList} />
         <Route exact path={"/areapoint/:id"} component={AreaPointDetail} />
         <Route exact path={"/termsofservice"} component={TermsOfService} />
       </Auth>
