@@ -2,7 +2,6 @@ import React, { useCallback, useRef } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { PlaceInfo } from "./PlaceInfo";
 
-// 地図のサイズの指定
 const libraries = ["places"];
 
 // デフォルトUI（衛星写真オプション）キャンセル
@@ -12,6 +11,7 @@ const options = {
 };
 
 export const GoogleMapsComponent = (props) => {
+  const id = window.location.pathname
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_API_KEY,
     libraries,
@@ -34,15 +34,24 @@ export const GoogleMapsComponent = (props) => {
           height: props.mapContainerStyle.height,
           width: props.mapContainerStyle.width,
         }}
-        zoom={16}
+        zoom={props.zoom}
         center={{
           lat: props.lat,
           lng: props.lng,
         }}
         options={options}
         onLoad={onMapLoad}
+        onClick={id=="/installationinfoedit" && ((e) => {
+          props.locationLat(e.latLng.lat())
+          props.locationLng(e.latLng.lng())
+        })}
       >
-        <PlaceInfo info={props.info} lat={props.lat} lng={props.lng} />
+        {!props.locationLat && (
+          <PlaceInfo info={props.info} lat={props.lat} lng={props.lng} />
+        )}
+        {props.locationLat && (
+          <PlaceInfo lat={props.lat} lng={props.lng} />
+        )}
       </GoogleMap>
     </div>
   );

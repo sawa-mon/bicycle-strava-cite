@@ -187,6 +187,7 @@ export const AreaPointDetail = () => {
                 </StyledUserIconAreaWrap>
               </StyledGoogleMap>
               <GoogleMapsComponent
+                zoom={16}
                 info={areapoint.info}
                 lat={areapoint.locationLat}
                 lng={areapoint.locationLng}
