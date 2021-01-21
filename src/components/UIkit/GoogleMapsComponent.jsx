@@ -41,7 +41,7 @@ export const GoogleMapsComponent = (props) => {
         }}
         options={options}
         onLoad={onMapLoad}
-        onClick={id=="/installationinfoedit" && ((e) => {
+        onClick={id=="/installationinfoedit(/:id)?" || "/installationinfoedit" && ((e) => {
           props.locationLat(e.latLng.lat())
           props.locationLng(e.latLng.lng())
         })}

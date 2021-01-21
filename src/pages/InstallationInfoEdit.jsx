@@ -79,7 +79,7 @@ export const InstallationInfoEdit = () => {
 
   return (
     <StyledSection>
-      <h2>ラックポイント登録・編集</h2>
+      <h2>ラックポイント登録</h2>
       <StyledDiv>
         <AddImage images={images} setImages={setImages} />
         <StyledInput
