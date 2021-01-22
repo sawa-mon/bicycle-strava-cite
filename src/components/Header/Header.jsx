@@ -57,7 +57,7 @@ export const Header = () => {
     <div className={classes.root}>
       <AppBar className={classes.menuBar} position="fixed">
         <Toolbar className={classes.Toolbar}>
-          <StyledheaderLogo onClick={() => dispatch(push("/home"))}>
+          <StyledheaderLogo onClick={() => dispatch(push("/"))}>
             <img src={headerlogo} alt="mainlogo" />
             <h1>Racmap</h1>
           </StyledheaderLogo>

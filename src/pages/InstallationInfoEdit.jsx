@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, SelectBox } from "../components/UIkit";
+import { Button, GoogleMapsComponent, SelectBox } from "../components/UIkit";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { saveAddPoint } from "../reducks/areapoints/operation";
@@ -34,20 +34,6 @@ export const InstallationInfoEdit = () => {
       setInstallation(event.target.value);
     },
     [setInstallation]
-  );
-
-  const inputLocationLat = useCallback(
-    (event) => {
-      setLocationLat(event.target.value);
-    },
-    [setLocationLat]
-  );
-
-  const inputLocationLng = useCallback(
-    (event) => {
-      setLocationLng(event.target.value);
-    },
-    [setLocationLng]
   );
 
   // /編集ページにおけるデータベースからのデータ取得
@@ -86,40 +72,50 @@ export const InstallationInfoEdit = () => {
       });
   }, []);
 
+  const mapContainerStyle = {
+    height: "320px",
+    width: "320px",
+  };
+
   return (
     <StyledSection>
-      <h2>ラックポイント登録・編集</h2>
+      <h2>ラックポイント登録</h2>
       <StyledDiv>
         <AddImage images={images} setImages={setImages} />
+        <h3>ラック設置エリア名</h3>
         <StyledInput
           onChange={inputInsatallation}
           type="text"
           placeholder="バイクラックの場所概要：道の駅〇〇"
           value={installation}
         />
+        <h3>ラック設置場所</h3>
         <StyledInput
           onChange={inputInfo}
           type="text"
           placeholder="地図内表示される位置コメント：位置は〇〇です"
           value={info}
         />
-        <StyledInput
-          onChange={inputLocationLat}
-          type="number"
-          placeholder="経度：34.343434"
-          value={locationLat}
-          min={20}
-          min={46}
-        />
-        <StyledInput
-          onChange={inputLocationLng}
-          type="number"
-          placeholder="緯度：137.13713"
-          value={locationLng}
-          min={122}
-          max={154}
-          step={0.00001}
-        />
+        <Wrap>
+          <h3>追加するMapのポイントデータ</h3>
+          <p>
+            経度:{Math.floor(locationLat * 1000000) / 1000000}
+            <br />
+            緯度:{Math.floor(locationLng * 1000000) / 1000000}
+          </p>
+          <h4>Mapで指定したい位置を選択して下さい</h4>
+        </Wrap>
+        <Wrap>
+          <GoogleMapsComponent
+            zoom={10}
+            lat={!locationLat ? 35.338657 : locationLat}
+            lng={!locationLat ? 137.115682 : locationLng}
+            mapContainerStyle={mapContainerStyle}
+            locationLat={setLocationLat}
+            locationLng={setLocationLng}
+          />
+        </Wrap>
+        <h3>カテゴリ選択</h3>
         <SelectBox
           options={prefectures}
           select={setPrefecture}
@@ -167,8 +163,11 @@ const StyledSection = styled.section`
   display: grid;
   place-items: center;
   margin: 0 auto;
+  h3 h4 {
+    margin: 0;
+  }
 `;
 
 const Wrap = styled.div`
-  margin: 30px;
+  margin: 20px;
 `;
