@@ -82,12 +82,14 @@ export const InstallationInfoEdit = () => {
       <h2>ラックポイント登録</h2>
       <StyledDiv>
         <AddImage images={images} setImages={setImages} />
+        <h3>ラック設置エリア名</h3>
         <StyledInput
           onChange={inputInsatallation}
           type="text"
           placeholder="バイクラックの場所概要：道の駅〇〇"
           value={installation}
         />
+        <h3>ラック設置場所</h3>
         <StyledInput
           onChange={inputInfo}
           type="text"
@@ -95,22 +97,25 @@ export const InstallationInfoEdit = () => {
           value={info}
         />
         <Wrap>
-        <h3>追加するMapのポイントデータ</h3>
-        <p>経度:{(Math.floor(locationLat * 1000000) / 1000000)}
-          <br />
-          緯度:{(Math.floor(locationLng * 1000000) / 1000000)}</p>
-        <h4>Mapで指定したい位置を選択して下さい</h4>
+          <h3>追加するMapのポイントデータ</h3>
+          <p>
+            経度:{Math.floor(locationLat * 1000000) / 1000000}
+            <br />
+            緯度:{Math.floor(locationLng * 1000000) / 1000000}
+          </p>
+          <h4>Mapで指定したい位置を選択して下さい</h4>
         </Wrap>
         <Wrap>
-        <GoogleMapsComponent
-          zoom={10}
-          lat={!locationLat ? 35.338657 : locationLat}
-          lng={!locationLat ? 137.115682 : locationLng}
-          mapContainerStyle={mapContainerStyle}
-          locationLat={setLocationLat}
-          locationLng={setLocationLng}
+          <GoogleMapsComponent
+            zoom={10}
+            lat={!locationLat ? 35.338657 : locationLat}
+            lng={!locationLat ? 137.115682 : locationLng}
+            mapContainerStyle={mapContainerStyle}
+            locationLat={setLocationLat}
+            locationLng={setLocationLng}
           />
         </Wrap>
+        <h3>カテゴリ選択</h3>
         <SelectBox
           options={prefectures}
           select={setPrefecture}
@@ -158,11 +163,11 @@ const StyledSection = styled.section`
   display: grid;
   place-items: center;
   margin: 0 auto;
+  h3 h4 {
+    margin: 0;
+  }
 `;
 
 const Wrap = styled.div`
   margin: 20px;
-  h3 h4{
-    margin:0;
-  }
 `;

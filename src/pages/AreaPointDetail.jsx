@@ -175,7 +175,7 @@ export const AreaPointDetail = () => {
             </CommentWraper>
             <MapAreaWrap>
               <StyledGoogleMap>
-                <h2>〜GooleMap〜</h2>
+                <h2>〜GoogleMap〜</h2>
                 <StyledText>ラック設置ポイントの投稿者</StyledText>
                 <StyledUserIconAreaWrap>
                   <StyledIcon

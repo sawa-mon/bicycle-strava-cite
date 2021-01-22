@@ -11,7 +11,7 @@ const options = {
 };
 
 export const GoogleMapsComponent = (props) => {
-  const id = window.location.pathname
+  const id = window.location.pathname.split(/&|\//)[1]
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_API_KEY,
     libraries,
@@ -25,6 +25,9 @@ export const GoogleMapsComponent = (props) => {
 
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
+
+  // "/installationinfoedit(/:id)?" || "/installationinfoedit"
+console.log(id)
 
   return (
     <div>
@@ -41,7 +44,7 @@ export const GoogleMapsComponent = (props) => {
         }}
         options={options}
         onLoad={onMapLoad}
-        onClick={id=="/installationinfoedit(/:id)?" || "/installationinfoedit" && ((e) => {
+        onClick={id != "areapoint" && ((e) => {
           props.locationLat(e.latLng.lat())
           props.locationLng(e.latLng.lng())
         })}
