@@ -35,7 +35,9 @@ export const PrefectureList = () => {
   //selectorがURLに関する値を持っているのでそれを取得
   const query = selector.router.location.search;
   // クエリパラメータ /^\先頭が ?prefecture=から始まる queryを.testメソッドで検証し trueの場合split()[1]とし、?以降の値を取り出す
-  const category = /^\?category=/.test(query) ? query.split('?category=')[1] : "";
+  const category = /^\?category=/.test(query)
+    ? query.split("?category=")[1]
+    : "";
   const prefecture = /^\?prefecture=/.test(query)
     ? query.split("?prefecture=")[1]
     : "";
@@ -67,7 +69,7 @@ export const PrefectureList = () => {
       default:
         break;
     }
-  })
+  }, [prefecture]);
 
   useEffect(() => {
     switch (category == category) {
@@ -75,31 +77,38 @@ export const PrefectureList = () => {
         setCategories("");
         break;
       case category == "roadsidestation":
-        setCategories("道の駅にある");
+        setCategories("道の駅、休憩所にある");
         break;
       case category == "conveni":
         setCategories("コンビニにある");
         break;
       case category == "cycleshop":
-        setCategories("サイクルショップにある");
+        setCategories("自転車関連店舗にある");
         break;
       case category == "cafe":
-        setCategories("カフェにある");
+        setCategories("カフェ、フード店にある");
         break;
-        default:
-          break;
+      default:
+        break;
     }
-  })
+  }, [category]);
 
   return (
     <StyledContainer>
-      <h2>{prefecture ? (prefectures):(categories)}バイクラック一覧</h2>
+      <h2>{prefecture ? prefectures : categories}バイクラック一覧</h2>
       {areapoints.length > 0 ? (
         <StyledSection>
           {areapoints.map((areapoint, index) => (
             <StyledInfo key={index}>
               <StyledTitle>
-                <strong>ラック設置エリア</strong>
+                <strong>
+                  ラック設置エリア：
+                  {areapoint.prefecture == "gifu" && "岐阜県"}
+                  {areapoint.prefecture == "aichi" && "愛知県"}
+                  {areapoint.prefecture == "nagano" && "長野県"}
+                  {areapoint.prefecture == "mie" && "三重県"}
+                  {areapoint.prefecture == "shiga" && "滋賀県"}
+                </strong>
                 <br />
                 {areapoint.installation}
               </StyledTitle>

@@ -11,8 +11,7 @@ export const fetchAreaPoints = (category, prefecture) => {
     // orderByに加えてprefectureが空白ではなかったらwhere条件文でフィールドがprefectureのものを取得する
     query =
       prefecture !== "" ? query.where("prefecture", "==", prefecture) : query;
-    query =
-      category !== "" ? query.where("category", "==", category) : query;
+    query = category !== "" ? query.where("category", "==", category) : query;
 
     query.get().then((snapshots) => {
       const areapointList = [];
@@ -50,7 +49,7 @@ export const saveAddPoint = (
   locationLat,
   locationLng,
   prefecture,
-  category,
+  category
 ) => {
   return async (dispatch, getState) => {
     const timestamp = FirebaseTimestamp.now();
@@ -64,7 +63,7 @@ export const saveAddPoint = (
       locationLng: parseFloat(locationLng),
       prefecture: prefecture,
       timestamp: timestamp,
-      category:category,
+      category: category,
     };
 
     //新規作成のページのときのみ(idが""=新規作成)は実行

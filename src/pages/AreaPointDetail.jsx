@@ -55,6 +55,7 @@ export const AreaPointDetail = () => {
   const [areapoint, setAreapoint] = useState(null);
   const [inputComment, setInputComment] = useState("");
   const [addComments, setAddComments] = useState("");
+  const [areaName, setAreaName] = useState("");
 
   const areapointRef = db.collection("areapoints").doc(id);
   const commentRef = areapointRef.collection("comments");
@@ -80,8 +81,26 @@ export const AreaPointDetail = () => {
       .then((doc) => {
         const data = doc.data();
         setAreapoint(data);
+        switch (true) {
+          case data.prefecture == "gifu":
+            setAreaName("岐阜県");
+            break;
+          case data.prefecture == "aichi":
+            setAreaName("愛知県");
+            break;
+          case data.prefecture == "nagano":
+            setAreaName("長野県");
+            break;
+          case data.prefecture == "shiga":
+            setAreaName("滋賀県");
+            break;
+          case data.prefecture == "mie":
+            setAreaName("三重県");
+            break;
+        }
       });
   }, []);
+  console.log(areaName);
 
   useEffect(() => {
     const unSub = commentRef
@@ -119,7 +138,10 @@ export const AreaPointDetail = () => {
             </div>
             <div className={classes.detail}>
               <StyledTitle>
-                <h2>〜ラック設置ポイント〜</h2>
+                <h2>
+                  〜ラックポイントエリア〜
+                  <br />ー{areaName}ー
+                </h2>
                 <p>{areapoint.installation}</p>
                 <h2>〜ラックの詳細位置〜</h2>
                 <p>{areapoint.info}</p>

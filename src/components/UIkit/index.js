@@ -7,4 +7,3 @@ export { SelectBox } from "./SelectBox";
 export { AddImage } from "./AddImage";
 export { ImagePreview } from "./ImagePreview";
 export { ImageSwiper } from "./ImageSwiper";
-export { AreaDetailsInfoView } from "./AreaDetailsInfoView";
