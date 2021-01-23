@@ -46,7 +46,6 @@ export const ClosableDrawer = (props) => {
       a.target = "_blank";
       a.click();
     }
-
     dispatch(push(path));
     props.onClose(event);
   };
@@ -59,20 +58,23 @@ export const ClosableDrawer = (props) => {
       value: "/",
     },
     {
+      label: "〜カテゴリで検索〜",
+    },
+    {
       func: selectMenu,
-      label: "サイクルショップ",
+      label: "自転車関連店舗",
       id: "cycleshop",
       value: "/?category=cycleshop",
     },
     {
       func: selectMenu,
-      label: "カフェ、フード",
+      label: "カフェ、フード店、他",
       id: "cafe",
       value: "/?category=cafe",
     },
     {
       func: selectMenu,
-      label: "道の駅",
+      label: "道の駅、休憩所",
       id: "roadsidestation",
       value: "/?category=roadsidestation",
     },
@@ -81,6 +83,9 @@ export const ClosableDrawer = (props) => {
       label: "コンビニ",
       id: "conveni",
       value: "/?category=conveni",
+    },
+    {
+      label: "〜地域で検索〜",
     },
   ]);
 
@@ -199,9 +204,12 @@ export const ClosableDrawer = (props) => {
               <ListItem
                 button
                 key={filter.id}
-                onClick={(e) => {
-                  filter.func(e, filter.value);
-                }}
+                onClick={
+                  filter.value &&
+                  ((e) => {
+                    filter.func(e, filter.value);
+                  })
+                }
               >
                 <ListItemText primary={filter.label} />
               </ListItem>

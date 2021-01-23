@@ -60,7 +60,7 @@ export const InstallationInfoEdit = () => {
 
   useEffect(() => {
     db.collection("prefectures")
-      .orderBy("number", "asc")
+      .orderBy("id", "asc")
       .get()
       .then((snapshots) => {
         const list = [];
