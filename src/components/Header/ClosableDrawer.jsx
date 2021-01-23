@@ -9,7 +9,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/styles";
 import AddCirclreIcon from "@material-ui/icons/AddCircle";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import TrackChangesIcon from "@material-ui/icons/TrackChanges";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { push } from "connected-react-router";
 import { signOut } from "../../reducks/users/operations";
@@ -55,9 +54,33 @@ export const ClosableDrawer = (props) => {
   const [filters, setFilters] = useState([
     {
       func: selectMenu,
-      label: "すべてのエリア",
+      label: "すべて",
       id: "all",
       value: "/",
+    },
+    {
+      func: selectMenu,
+      label: "サイクルショップ",
+      id: "cycleshop",
+      value: "/?category=cycleshop",
+    },
+    {
+      func: selectMenu,
+      label: "カフェ、フード",
+      id: "cafe",
+      value: "/?category=cafe",
+    },
+    {
+      func: selectMenu,
+      label: "道の駅",
+      id: "roadsidestation",
+      value: "/?category=roadsidestation",
+    },
+    {
+      func: selectMenu,
+      label: "コンビニ",
+      id: "conveni",
+      value: "/?category=conveni",
     },
   ]);
 

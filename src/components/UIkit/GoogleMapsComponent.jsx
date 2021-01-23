@@ -26,9 +26,6 @@ export const GoogleMapsComponent = (props) => {
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
 
-  // "/installationinfoedit(/:id)?" || "/installationinfoedit"
-console.log(id)
-
   return (
     <div>
       <GoogleMap

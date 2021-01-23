@@ -21,6 +21,8 @@ export const InstallationInfoEdit = () => {
   const [locationLng, setLocationLng] = useState("");
   const [prefecture, setPrefecture] = useState("");
   const [prefectures, setPrefectures] = useState([]);
+  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const inputInfo = useCallback(
     (event) => {
@@ -51,6 +53,7 @@ export const InstallationInfoEdit = () => {
           setLocationLat(data.locationLat);
           setLocationLng(data.locationLng);
           setPrefecture(data.prefecture);
+          setCategory(data.category);
         });
     }
   }, [id]);
@@ -69,6 +72,23 @@ export const InstallationInfoEdit = () => {
           });
         });
         setPrefectures(list);
+      });
+  }, []);
+
+  useEffect(() => {
+    db.collection("categories")
+      .orderBy("number", "asc")
+      .get()
+      .then((snapshots) => {
+        const categorylist = [];
+        snapshots.forEach((snapshot) => {
+          const categorydata = snapshot.data();
+          categorylist.push({
+            id: categorydata.id,
+            name: categorydata.name,
+          });
+        });
+        setCategories(categorylist);
       });
   }, []);
 
@@ -116,13 +136,22 @@ export const InstallationInfoEdit = () => {
           />
         </Wrap>
         <h3>カテゴリ選択</h3>
+        <Wrap>
         <SelectBox
           options={prefectures}
           select={setPrefecture}
           value={prefecture}
-        />
+          />
+          </Wrap>
+          <Wrap>
+        <SelectBox
+          options={categories}
+          select={setCategory}
+          value={category}
+          />
+          </Wrap>
         <Wrap>
-          {info && installation && locationLat && locationLng && prefecture ? (
+          {info && installation && locationLat && locationLng && prefecture && category? (
             <Button
               label="この内容で登録する"
               onClick={() =>
@@ -134,7 +163,8 @@ export const InstallationInfoEdit = () => {
                     installation,
                     locationLat,
                     locationLng,
-                    prefecture
+                    prefecture,
+                    category
                   )
                 )
               }
