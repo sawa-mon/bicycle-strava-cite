@@ -35,9 +35,12 @@ export const EditAreaPointList = () => {
   const prefecture = /^\?prefecture=/.test(query)
     ? query.split("?prefecture=")[1]
     : "";
+  const category = /^\?category=/.test(query)
+    ? query.split("?category=")[1]
+    : "";
 
   useEffect(() => {
-    dispatch(fetchAreaPoints(prefecture));
+    dispatch(fetchAreaPoints(category, prefecture));
   }, []);
 
   const inputPass = useCallback(

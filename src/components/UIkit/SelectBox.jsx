@@ -5,7 +5,6 @@ export const SelectBox = (props) => {
   return (
     <StyledSelect
       id={props.id}
-      value={props.value}
       onChange={(event) => props.select(event.target.value)}
     >
       {props.options.map((option) => (
@@ -18,7 +17,7 @@ export const SelectBox = (props) => {
 };
 
 const StyledSelect = styled.select`
-  width: ${(props) => (props.home ? "150px" : "300px")};
+  width: 300px;
   height: 40px;
   font-size: 20px;
   background-color: #d1d1d1;
