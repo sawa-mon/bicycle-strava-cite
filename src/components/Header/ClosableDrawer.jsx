@@ -58,7 +58,10 @@ export const ClosableDrawer = (props) => {
       value: "/",
     },
     {
+      func: selectMenu,
       label: "〜カテゴリで検索〜",
+      id: "category",
+      value: "/",
     },
     {
       func: selectMenu,
@@ -85,7 +88,10 @@ export const ClosableDrawer = (props) => {
       value: "/?category=conveni",
     },
     {
+      func: selectMenu,
       label: "〜地域で検索〜",
+      id: "prefect",
+      value: "/",
     },
   ]);
 

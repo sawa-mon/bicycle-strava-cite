@@ -7,6 +7,7 @@ import styled from "styled-components";
 import noImageAvatar from "../assets/Images/noImageAvatar.svg";
 import submitIcon from "../assets/Images/submitIcon.svg";
 import { getUserIcon, getUserName } from "../reducks/users/selectors";
+import { getAreaPoints } from "../reducks/areapoints/selector";
 
 const useStyles = makeStyles((theme) => ({
   sliderBox: {
@@ -42,6 +43,9 @@ export const AreaPointDetail = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const selector = useSelector((state) => state);
+  // const areaPointName = getAreaPoints(selector);
+  // console.log(areaPointName);
+
   const path = selector.router.location.pathname;
   const userName = getUserName(selector);
   const userIcon = getUserIcon(selector);
@@ -100,7 +104,6 @@ export const AreaPointDetail = () => {
         }
       });
   }, []);
-  console.log(areaName);
 
   useEffect(() => {
     const unSub = commentRef

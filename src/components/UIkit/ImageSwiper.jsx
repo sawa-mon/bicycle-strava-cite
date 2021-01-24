@@ -23,7 +23,7 @@ export const ImageSwiper = (props) => {
 
   return (
     <Swiper {...params}>
-      {images.length === 0 ? (
+      {!images.length ? (
         <StyledContainer>
           <StyledWrap>
             <img src={NoImage} alt="no image" />
