@@ -23,7 +23,7 @@ export const ImageSwiper = (props) => {
 
   return (
     <Swiper {...params}>
-      {images.length === 0 ? (
+      {!images.length ? (
         <StyledContainer>
           <StyledWrap>
             <img src={NoImage} alt="no image" />
@@ -33,7 +33,7 @@ export const ImageSwiper = (props) => {
         images.map((image, index) => (
           <StyledContainer key={index}>
             <StyledWrap>
-              <img src={image.path} alt="商品画像" />
+              <img src={image.path} alt="イメージ画像" />
             </StyledWrap>
           </StyledContainer>
         ))

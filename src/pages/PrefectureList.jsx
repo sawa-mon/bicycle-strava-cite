@@ -47,23 +47,23 @@ export const PrefectureList = () => {
   }, [query]);
 
   useEffect(() => {
-    switch (prefecture == prefecture) {
-      case prefecture == "":
+    switch (prefecture === prefecture) {
+      case prefecture === "":
         setPrefectures("");
         break;
-      case prefecture == "gifu":
+      case prefecture === "gifu":
         setPrefectures("岐阜県の");
         break;
-      case prefecture == "aichi":
+      case prefecture === "aichi":
         setPrefectures("愛知県の");
         break;
-      case prefecture == "nagano":
+      case prefecture === "nagano":
         setPrefectures("長野県の");
         break;
-      case prefecture == "shiga":
+      case prefecture === "shiga":
         setPrefectures("滋賀県の");
         break;
-      case prefecture == "mie":
+      case prefecture === "mie":
         setPrefectures("三重県の");
         break;
       default:
@@ -72,20 +72,20 @@ export const PrefectureList = () => {
   }, [prefecture]);
 
   useEffect(() => {
-    switch (category == category) {
-      case category == "":
+    switch (category === category) {
+      case category === "":
         setCategories("");
         break;
-      case category == "roadsidestation":
+      case category === "roadsidestation":
         setCategories("道の駅、休憩所にある");
         break;
-      case category == "conveni":
+      case category === "conveni":
         setCategories("コンビニにある");
         break;
-      case category == "cycleshop":
+      case category === "cycleshop":
         setCategories("自転車関連店舗にある");
         break;
-      case category == "cafe":
+      case category === "cafe":
         setCategories("カフェ、フード店にある");
         break;
       default:
@@ -103,11 +103,11 @@ export const PrefectureList = () => {
               <StyledTitle>
                 <strong>
                   ラック設置エリア：
-                  {areapoint.prefecture == "gifu" && "岐阜県"}
-                  {areapoint.prefecture == "aichi" && "愛知県"}
-                  {areapoint.prefecture == "nagano" && "長野県"}
-                  {areapoint.prefecture == "mie" && "三重県"}
-                  {areapoint.prefecture == "shiga" && "滋賀県"}
+                  {areapoint.prefecture === "gifu" && "岐阜県"}
+                  {areapoint.prefecture === "aichi" && "愛知県"}
+                  {areapoint.prefecture === "nagano" && "長野県"}
+                  {areapoint.prefecture === "mie" && "三重県"}
+                  {areapoint.prefecture === "shiga" && "滋賀県"}
                 </strong>
                 <br />
                 {areapoint.installation}

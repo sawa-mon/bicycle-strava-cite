@@ -137,21 +137,26 @@ export const InstallationInfoEdit = () => {
         </Wrap>
         <h3>カテゴリ選択</h3>
         <Wrap>
-        <SelectBox
-          options={prefectures}
-          select={setPrefecture}
-          value={prefecture}
+          <SelectBox
+            options={prefectures}
+            select={setPrefecture}
+            value={prefecture}
           />
-          </Wrap>
-          <Wrap>
-        <SelectBox
-          options={categories}
-          select={setCategory}
-          value={category}
-          />
-          </Wrap>
+        </Wrap>
         <Wrap>
-          {info && installation && locationLat && locationLng && prefecture && category? (
+          <SelectBox
+            options={categories}
+            select={setCategory}
+            value={category}
+          />
+        </Wrap>
+        <Wrap>
+          {info &&
+          installation &&
+          locationLat &&
+          locationLng &&
+          prefecture &&
+          category ? (
             <Button
               label="この内容で登録する"
               onClick={() =>
