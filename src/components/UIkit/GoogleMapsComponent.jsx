@@ -11,7 +11,7 @@ const options = {
 };
 
 export const GoogleMapsComponent = (props) => {
-  const id = window.location.pathname.split(/&|\//)[1]
+  const id = window.location.pathname.split(/&|\//)[1];
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_API_KEY,
     libraries,
@@ -41,17 +41,18 @@ export const GoogleMapsComponent = (props) => {
         }}
         options={options}
         onLoad={onMapLoad}
-        onClick={id != "areapoint" && ((e) => {
-          props.locationLat(e.latLng.lat())
-          props.locationLng(e.latLng.lng())
-        })}
+        onClick={
+          id !== "areapoint" &&
+          ((e) => {
+            props.locationLat(e.latLng.lat());
+            props.locationLng(e.latLng.lng());
+          })
+        }
       >
         {!props.locationLat && (
           <PlaceInfo info={props.info} lat={props.lat} lng={props.lng} />
         )}
-        {props.locationLat && (
-          <PlaceInfo lat={props.lat} lng={props.lng} />
-        )}
+        {props.locationLat && <PlaceInfo lat={props.lat} lng={props.lng} />}
       </GoogleMap>
     </div>
   );

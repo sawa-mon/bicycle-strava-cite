@@ -50,9 +50,6 @@ export const googleSignIn = () => {
           .doc(uid)
           .set(userData)
           .then(() => {
-            dispatch(signInAction(userData));
-          })
-          .then(() => {
             dispatch(push("/"));
           })
           .catch(() => {
@@ -83,9 +80,6 @@ export const twitterSignIn = () => {
         db.collection("users")
           .doc(uid)
           .set(userData)
-          .then(() => {
-            dispatch(signInAction(userData));
-          })
           .then(() => {
             dispatch(push("/"));
           })
