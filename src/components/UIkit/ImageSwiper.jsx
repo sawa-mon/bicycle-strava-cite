@@ -33,7 +33,7 @@ export const ImageSwiper = (props) => {
         images.map((image, index) => (
           <StyledContainer key={index}>
             <StyledWrap>
-              <img src={image.path} alt="商品画像" />
+              <img src={image.path} alt="イメージ画像" />
             </StyledWrap>
           </StyledContainer>
         ))
