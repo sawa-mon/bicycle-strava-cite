@@ -6,26 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getAreaPoints } from "../reducks/areapoints/selector";
 import { fetchAreaPoints } from "../reducks/areapoints/operation";
-
-const useStyles = makeStyles((theme) => ({
-  sliderBox: {
-    [theme.breakpoints.down("sm")]: {
-      margin: "0 auto",
-      height: 200,
-      width: 300,
-      outLine: "none",
-    },
-    [theme.breakpoints.up("sm")]: {
-      margin: "0 auto",
-      height: 200,
-      width: 300,
-      outLine: "none",
-    },
-  },
-}));
+import NoImage from "../assets/Images/no_image.png";
 
 export const PrefectureList = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
@@ -113,9 +97,16 @@ export const PrefectureList = () => {
                 {areapoint.installation}
               </StyledTitle>
               <MapWrap>
-                <div className={classes.sliderBox}>
-                  <ImageSwiper images={areapoint.images} />
-                </div>
+                <StyledCard>
+                  <img
+                    src={
+                      areapoint.images.length
+                        ? areapoint.images[0].path
+                        : NoImage
+                    }
+                    alt="sampleImage"
+                  />
+                </StyledCard>
                 <CommentWrap>
                   <Button
                     plane
@@ -188,4 +179,20 @@ const MapWrap = styled.div`
   display: grid;
   place-items: center;
   margin: 10px;
+`;
+
+const StyledCard = styled.div`
+  width: 300px;
+  height: 180px;
+  border: 1px solid #ffffff33;
+  display: flex;
+  background-color: #ffffff1f;
+  justify-content: center;
+  /* vertical-align: top; */
+  img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
