@@ -149,6 +149,7 @@ const StyledInfo = styled.h3`
 const StyledButton = styled.button`
   outline: none;
   cursor: pointer;
+  transition: all 0.2s;
   :hover {
     opacity: 0.7;
   }

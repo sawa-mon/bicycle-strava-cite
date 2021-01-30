@@ -334,6 +334,7 @@ const StyledSubmitButton = styled.button`
   border: none;
   outline: none;
   margin: 20px;
+  transition: all 0.2s;
   img {
     width: 35px;
     height: 35px;

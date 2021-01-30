@@ -27,6 +27,7 @@ const StyledButton = styled.button`
   font-weight: bold;
   outline: none;
   cursor: pointer;
+  transition: all 0.3s;
   :hover {
     opacity: 0.7;
   }
