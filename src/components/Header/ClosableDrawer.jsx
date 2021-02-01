@@ -214,6 +214,7 @@ export const ClosableDrawer = (props) => {
                   filter.value &&
                   ((e) => {
                     filter.func(e, filter.value);
+                    props.onClose(e);
                   })
                 }
               >
