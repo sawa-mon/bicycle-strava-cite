@@ -1,31 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/styles";
-import { Button, ImageSwiper } from "../components/UIkit/index";
+import { Button } from "../components/UIkit/index";
 import { push } from "connected-react-router";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getAreaPoints } from "../reducks/areapoints/selector";
 import { fetchAreaPoints } from "../reducks/areapoints/operation";
-
-const useStyles = makeStyles((theme) => ({
-  sliderBox: {
-    [theme.breakpoints.down("sm")]: {
-      margin: "0 auto",
-      height: 200,
-      width: 300,
-      outLine: "none",
-    },
-    [theme.breakpoints.up("sm")]: {
-      margin: "0 auto",
-      height: 200,
-      width: 300,
-      outLine: "none",
-    },
-  },
-}));
+import NoImage from "../assets/Images/no_image.png";
 
 export const PrefectureList = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
@@ -44,9 +26,10 @@ export const PrefectureList = () => {
 
   useEffect(() => {
     dispatch(fetchAreaPoints(category, prefecture));
-  }, [query]);
+  }, [category, dispatch, prefecture, query]);
 
   useEffect(() => {
+    // eslint-disable-next-line no-self-compare
     switch (prefecture === prefecture) {
       case prefecture === "":
         setPrefectures("");
@@ -72,6 +55,7 @@ export const PrefectureList = () => {
   }, [prefecture]);
 
   useEffect(() => {
+    // eslint-disable-next-line no-self-compare
     switch (category === category) {
       case category === "":
         setCategories("");
@@ -96,7 +80,7 @@ export const PrefectureList = () => {
   return (
     <StyledContainer>
       <h2>{prefecture ? prefectures : categories}バイクラック一覧</h2>
-      {areapoints.length > 0 ? (
+      {areapoints.length >= 1 ? (
         <StyledSection>
           {areapoints.map((areapoint, index) => (
             <StyledInfo key={index}>
@@ -113,9 +97,18 @@ export const PrefectureList = () => {
                 {areapoint.installation}
               </StyledTitle>
               <MapWrap>
-                <div className={classes.sliderBox}>
-                  <ImageSwiper images={areapoint.images} />
-                </div>
+                <StyledCard
+                  onClick={() => dispatch(push("/areapoint/" + areapoint.id))}
+                >
+                  <img
+                    src={
+                      areapoint.images.length
+                        ? areapoint.images[0].path
+                        : NoImage
+                    }
+                    alt="sampleImage"
+                  />
+                </StyledCard>
                 <CommentWrap>
                   <Button
                     plane
@@ -129,9 +122,9 @@ export const PrefectureList = () => {
         </StyledSection>
       ) : (
         <StyledContainer>
-          <StyledErrorComent>
+          <StyledErrorComment>
             申し訳ありませんが、現在このエリアの情報はありません
-          </StyledErrorComent>
+          </StyledErrorComment>
         </StyledContainer>
       )}
     </StyledContainer>
@@ -150,7 +143,7 @@ const StyledContainer = styled.section`
   }
 `;
 
-const StyledErrorComent = styled.h2`
+const StyledErrorComment = styled.h2`
   margin: 20px;
 `;
 
@@ -188,4 +181,20 @@ const MapWrap = styled.div`
   display: grid;
   place-items: center;
   margin: 10px;
+`;
+
+const StyledCard = styled.div`
+  width: 300px;
+  height: 180px;
+  border: 1px solid #ffffff33;
+  display: flex;
+  background-color: #ffffff1f;
+  justify-content: center;
+  /* vertical-align: top; */
+  img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;

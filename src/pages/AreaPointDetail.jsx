@@ -43,9 +43,6 @@ export const AreaPointDetail = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const selector = useSelector((state) => state);
-  // const areaPointName = getAreaPoints(selector);
-  // console.log(areaPointName);
-
   const path = selector.router.location.pathname;
   const userName = getUserName(selector);
   const userIcon = getUserIcon(selector);
@@ -334,6 +331,7 @@ const StyledSubmitButton = styled.button`
   border: none;
   outline: none;
   margin: 20px;
+  transition: all 0.2s;
   img {
     width: 35px;
     height: 35px;

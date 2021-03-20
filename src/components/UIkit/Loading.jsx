@@ -19,8 +19,8 @@ position: relative;
 -webkit-transform: translateZ(0);
 -ms-transform: translateZ(0);
 transform: translateZ(0);
--webkit-animation: load6 0.5s infinite ease, round 0.5s infinite ease;
-animation: load6 0.5s infinite ease, round 0.5s infinite ease;
+-webkit-animation: load6 0.4s infinite ease, round 0.4s infinite ease;
+animation: load6 0.4s infinite ease, round 0.4s infinite ease;
 
 @-webkit-keyframes load6 {
 0% {
