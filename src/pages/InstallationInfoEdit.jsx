@@ -23,6 +23,9 @@ export const InstallationInfoEdit = () => {
   const [prefectures, setPrefectures] = useState([]);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [icon, setIcon] = useState("");
+  const [timestamp, setTimestamp] = useState("");
 
   const inputInfo = useCallback(
     (event) => {
@@ -54,6 +57,9 @@ export const InstallationInfoEdit = () => {
           setLocationLng(data.locationLng);
           setPrefecture(data.prefecture);
           setCategory(data.category);
+          setIcon(data.icon);
+          setUserName(data.username);
+          setTimestamp(data.timestamp);
         });
     }
   }, [id]);
@@ -169,7 +175,10 @@ export const InstallationInfoEdit = () => {
                     locationLat,
                     locationLng,
                     prefecture,
-                    category
+                    category,
+                    userName,
+                    icon,
+                    timestamp
                   )
                 )
               }

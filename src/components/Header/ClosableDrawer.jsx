@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -15,6 +15,7 @@ import { signOut } from "../../reducks/users/operations";
 import { db } from "../../firebase/index";
 import ExploreIcon from "@material-ui/icons/Explore";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
+import { getUserEmail } from "../../reducks/users/selectors";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -38,6 +39,11 @@ export const ClosableDrawer = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { container } = props;
+  const selector = useSelector((state) => state);
+  const userEmail = getUserEmail(selector);
+  const [judgeAddress, setJudgeAddress] = useState(false);
+  const address1 = process.env.REACT_APP_EDIT_ACCESS_KEY_ID1;
+  const address2 = process.env.REACT_APP_EDIT_ACCESS_KEY_ID2;
 
   const selectMenu = (event, path) => {
     if (/^https:*/.test(path) || /^http:*/.test(path)) {
@@ -131,14 +137,6 @@ export const ClosableDrawer = (props) => {
       id: "googlemap",
       value: "https://www.google.co.jp/maps",
     },
-
-    {
-      func: selectMenu,
-      label: "", //"管理者用画面",
-      icon: "", //<TrackChangesIcon />,
-      id: "editmap",
-      value: "/areapointedit",
-    },
   ];
 
   useEffect(() => {
@@ -160,6 +158,12 @@ export const ClosableDrawer = (props) => {
       });
   }, []);
 
+  useEffect(() => {
+    if (userEmail === (address1 || address2)) {
+      setJudgeAddress(true);
+    }
+  }, []);
+
   return (
     <nav className={classes.drawer}>
       <Drawer
@@ -171,58 +175,63 @@ export const ClosableDrawer = (props) => {
         classes={{ paper: classes.drawerPaper }}
         ModalProps={{ keepMounted: true }}
       >
-        <div
-          onClose={(e) => props.onClose(e)}
-          onKeyDown={(e) => props.onClose(e)}
-        >
-          <List>
+        <List>
+          <ListItem
+            button
+            key="logout"
+            onClick={(e) => {
+              dispatch(signOut());
+              selectMenu(e);
+            }}
+          >
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary={"ログアウト"} />
+          </ListItem>
+          {judgeAddress === true && (
             <ListItem
               button
-              key="logout"
-              onClose={(e) => props.onClose(e)}
+              key="edit"
               onClick={(e) => {
-                dispatch(signOut());
-                selectMenu(e);
+                dispatch(push("/areapointedit"));
+                props.onClose(e);
               }}
             >
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
-              <ListItemText primary={"ログアウト"} />
+              <ListItemText primary={"管理編集画面"} />
             </ListItem>
-            {menus.map((menu) => (
-              <ListItem
-                button
-                key={menu.id}
-                onClick={(e) => {
-                  menu.func(e, menu.value);
-                  selectMenu(e);
-                }}
-              >
-                <ListItemIcon>{menu.icon}</ListItemIcon>
-                <ListItemText primary={menu.label} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {filters.map((filter) => (
-              <ListItem
-                button
-                key={filter.id}
-                onClick={
-                  filter.value &&
-                  ((e) => {
-                    filter.func(e, filter.value);
-                    props.onClose(e);
-                  })
-                }
-              >
-                <ListItemText primary={filter.label} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
+          )}
+          {menus.map((menu) => (
+            <ListItem
+              button
+              key={menu.id}
+              onClick={(e) => {
+                menu.func(e, menu.value);
+              }}
+            >
+              <ListItemIcon>{menu.icon}</ListItemIcon>
+              <ListItemText primary={menu.label} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {filters.map((filter) => (
+            <ListItem
+              button
+              key={filter.id}
+              onClick={(e) => {
+                filter.func(e, filter.value);
+                props.onClose(e);
+              }}
+            >
+              <ListItemText primary={filter.label} />
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
     </nav>
   );

@@ -49,11 +49,12 @@ export const saveAddPoint = (
   locationLat,
   locationLng,
   prefecture,
-  category
+  category,
+  userName,
+  icon,
+  timestamp
 ) => {
   return async (dispatch, getState) => {
-    const timestamp = FirebaseTimestamp.now();
-
     const data = {
       id: id,
       info: info,
@@ -64,21 +65,23 @@ export const saveAddPoint = (
       prefecture: prefecture,
       timestamp: timestamp,
       category: category,
+      username: userName,
+      icon: icon,
     };
 
+    const userInfo = getState().users;
     //新規作成のページのときのみ(idが""=新規作成)は実行
     if (id === "") {
+      const timestamp = FirebaseTimestamp.now();
       const ref = areapointsRef.doc();
       id = ref.id;
       data.id = id;
       data.timestamp = timestamp;
+      const icon = userInfo.icon;
+      data.icon = icon;
+      const username = userInfo.username;
+      data.username = username;
     }
-
-    const userInfo = getState().users;
-    const username = userInfo.username;
-    const icon = userInfo.icon;
-    data.username = username;
-    data.icon = icon;
 
     return areapointsRef
       .doc(id)

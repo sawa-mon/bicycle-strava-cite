@@ -97,7 +97,9 @@ export const PrefectureList = () => {
                 {areapoint.installation}
               </StyledTitle>
               <MapWrap>
-                <StyledCard>
+                <StyledCard
+                  onClick={() => dispatch(push("/areapoint/" + areapoint.id))}
+                >
                   <img
                     src={
                       areapoint.images.length

@@ -43,9 +43,6 @@ export const AreaPointDetail = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const selector = useSelector((state) => state);
-  // const areaPointName = getAreaPoints(selector);
-  // console.log(areaPointName);
-
   const path = selector.router.location.pathname;
   const userName = getUserName(selector);
   const userIcon = getUserIcon(selector);

@@ -29,7 +29,7 @@ export const EditAreaPointList = () => {
   const selector = useSelector((state) => state);
   const areapoints = getAreaPoints(selector);
   const [passCheck, setPassCheck] = useState(false);
-  const [inputpass, setInputPass] = useState("");
+  const [pass, setPass] = useState("");
 
   const query = selector.router.location.search;
   const prefecture = /^\?prefecture=/.test(query)
@@ -45,14 +45,14 @@ export const EditAreaPointList = () => {
 
   const inputPass = useCallback(
     (event) => {
-      setInputPass(event.target.value);
+      setPass(event.target.value);
     },
-    [setInputPass]
+    [setPass]
   );
 
   const checkPassWord = () => {
     const setPasskey = process.env.REACT_APP_EDIT_PAGE_KEY;
-    if (setPasskey === inputpass) {
+    if (setPasskey === pass) {
       setPassCheck(true);
     } else {
       alert("入力したパスワードが間違っています");
@@ -88,7 +88,7 @@ export const EditAreaPointList = () => {
           <h2>管理用画面</h2>
           <StyledPasswordWrap>
             <p>所定のPasswordを入力してください</p>
-            <input type="password" value={inputpass} onChange={inputPass} />
+            <input type="password" value={pass} onChange={inputPass} />
             <StyledButton>
               <Button
                 plane
