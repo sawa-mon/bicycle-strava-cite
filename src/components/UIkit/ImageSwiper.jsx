@@ -17,6 +17,9 @@ export const ImageSwiper = (props) => {
       prevEl: ".swiper-button-prev",
     },
     loop: true,
+    autoplay: true,
+    speed: 700,
+    effect: 'fade',
   });
 
   const images = props.images;
