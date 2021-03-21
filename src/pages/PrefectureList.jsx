@@ -96,7 +96,7 @@ export const PrefectureList = () => {
                 <br />
                 {areapoint.installation}
               </StyledTitle>
-              <MapWrap>
+              <CardWrap>
                 <StyledCard
                   onClick={() => dispatch(push("/areapoint/" + areapoint.id))}
                 >
@@ -116,7 +116,7 @@ export const PrefectureList = () => {
                     onClick={() => dispatch(push("/areapoint/" + areapoint.id))}
                   />
                 </CommentWrap>
-              </MapWrap>
+              </CardWrap>
             </StyledInfo>
           ))}
         </StyledSection>
@@ -177,14 +177,14 @@ const StyledInfo = styled.div`
   }
 `;
 
-const MapWrap = styled.div`
+const CardWrap = styled.div`
   display: grid;
   place-items: center;
   margin: 10px;
 `;
 
 const StyledCard = styled.div`
-  width: 300px;
+  width: 100%;
   height: 180px;
   border: 1px solid #ffffff33;
   display: flex;
@@ -196,5 +196,6 @@ const StyledCard = styled.div`
     height: auto;
     max-width: 100%;
     max-height: 100%;
+    cursor: pointer;
   }
 `;
